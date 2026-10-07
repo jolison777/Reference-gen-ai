@@ -1,0 +1,151 @@
+SQL
+-----
+STRCTURED QUERY LANGUAGE
+
+SELECT * FROM EMPLOYEES;
+
+CLAUSES
+---------
+SELECT -MANDATORY,COLUMNNANMES, ALL COLUMNS
+FROM  TABLENAME- MANDATORY
+WHERE - FILTER (ROW WISE)
+/
+SELECT *--ALL COLUMNS
+FROM EMPLOYEES;--CTRL+ENTER--107 ROWS
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY
+FROM EMPLOYEES;
+
+IN ORCALE, EXCEOT DATA EVERYTHING IS CASE INSESNSITIVE.
+DATA ALONE, CASE SENSITIVE
+
+SELECT *--ALL COLUMNS
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID =100;
+
+SELECT *--ALL COLUMNS
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID =90;
+
+SELECT EMPLOYEE_ID,FIRST_NAME,DEPARTMENT_ID--,SALARY
+FROM EMPLOYEES
+WHERE SALARY=17000;
+
+SELECT *
+FROM EMPLOYEES 
+WHERE FIRST_NAME='Steven';
+
+SELECT *
+FROM EMPLOYEES 
+WHERE FIRST_NAME='steven';
+
+datatypes
+----------
+NUMBER  - IT STORES ONLY NUMBERS
+VARCHAR - IT STORES ALPHANUMERIC,SPECIAL CHARCATERS,DATE - (IT MUST BE USED WITHIN THE SINGLE QUOTES) 
+DATE  - IT STIORES ONLY DATE- (IT MUST BE USED WITHIN THE SINGLE QUOTES) 
+
+LPOGICAL OPERATORS
+-----------------
+AND 
+OR
+
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90
+AND SALARY =17000;
+
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90
+AND SALARY =17000
+AND MANAGER_ID=100
+AND JOB_ID='AD_VP'
+AND FIRST_NAME='Lex';
+
+
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90
+OR FIRST_NAME='Steven';
+
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90
+OR FIRST_NAME='Steven'
+OR JOB_ID='ST_CLERK';
+
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID=90
+OR JOB_ID='ST_CLERK'
+AND FIRST_NAME='Steven';
+
+null
+------
+null is undefined
+null is not equal to anothe rnull
+null when perfored with any arithemtic operatior, output qil be null
+
+select null
+from employees;
+
+select employee_id,aimore
+from employees;--ORA-00904: "AIMORE": invalid identifier
+
+select employee_id,'aimore',1
+from employees;
+
+select employee_id,'aimore',1+5
+from employees;
+
+	
+
+select * 
+from employees
+where commission_pct is null;
+
+select * 
+from employees
+where commission_pct is not null;
+
+Dual
+-----
+orackle dummy table
+IT CONTAINS ONE ROW AND ONE COLUMN
+
+select * from dual;
+
+select employee_id,'aimore',1+5
+from employees;
+
+select 'aimore' as at,1+5 as num
+from dual;
+
+
+DISTINCT
+-----------
+IT IS SUED TO REMOVE THE DUPLICATES FROM THE OUTPUT
+IT IS USED IN THE SELECT XLAUSE
+AFTER THE SELECT BEFORE THE FIRST COLUMN NAME
+
+select distinct department_id
+from employees;--12
+
+select distinct department_id,job_id
+from employees;
+
+select distinct department_id,job_id,employee_id
+from employees;
+
+select *
+from employees;
+
+QUESTIONS
+-----------
+print employees who are all getting salary 24000 and they must be under the department 90
+print employees whose manager_id is 100 also print all employees with job_id IT_PROG
+what i ssleect c;ause
+what is from clause
+what is row wise filter
+what are all the logical operators
