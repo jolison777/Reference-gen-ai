@@ -1,0 +1,85 @@
+General Functions
+---------------------
+1 Nvl
+------------
+it is used to handle null values
+it accepts 2 paramters
+if the first parameter is not null, then it prints first parameter value
+if the first parameter is null, then it prints second parameter value
+select commission_pct,nvl(commission_pct,0) from employees;
+select commission_pct,nvl(commission_pct,100) from employees;
+
+Coalesce
+---------------
+it accepts n number of parameters
+it prints first not null value
+
+select coalesce(100,null,null,0) from dual;
+select coalesce(null,0,100,null,null,0) from dual;
+
+
+----
+GENDER
+------
+M
+F
+F
+F
+M
+O
+M
+A
+
+DECODE (expression , search_1, result_1[, search_2, result_2], ...,[,search_n,result_n] [, default]);
+
+SELECT DECODE(GENDER,'M','MALE','F','FEMALE','O','OTHERS','NA') FROM TABLENA
+
+Case
+---------
+SELECT EMPLOYEE_ID,'AIMORE' FROM EMPLOYEES;--AIMORE IS DERVIED COLUMN
+
+SALARY >= 17000  'HIGH'
+SALARY BETWEN 10000 AND 17000  'MEDIUM'
+SALARY <= 10000  'LOW'
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,CASE WHEN SALARY >= 17000 THEN 'HIGH'
+                                          WHEN SALARY BETWEEN 10000 AND 17000 THEN 'MEDIUM'
+                                          WHEN SALARY <= 10000 THEN 'LOW'
+                                     END
+FROM EMPLOYEES;
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,CASE WHEN SALARY >= 17000 THEN 'HIGH'
+                                          WHEN SALARY BETWEEN 10000 AND 17000 THEN 'MEDIUM'
+                                          ELSE 'LOW'
+                                    END
+FROM EMPLOYEES;
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,CASE WHEN SALARY >= 17000 THEN 'HIGH'
+                                          WHEN SALARY BETWEEN 10000 AND 17000 THEN 'MEDIUM'
+                                          ELSE 'LOW'
+                                     END AS SAL_RANGE
+FROM EMPLOYEES;
+
+SELECT *
+FROM EMPLOYEES
+WHERE SALARY BETWEEN 10000 AND 17000 ;
+
+Length
+-----------
+select first_name,length(first_name) from employees;
+select length('  aimore  ') from dual;--10 (incliudes space as well)
+
+Upper
+--------
+select first_name,upper(first_name) from employees;
+
+Lower
+----
+select first_name,lower(first_name) from employees;
+
+select first_name from employees
+where lower(first_name)='steven';
+
+Initcap
+--------
+select first_name,initcap(first_name) from employees;
