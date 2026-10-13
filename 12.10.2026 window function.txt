@@ -1,0 +1,333 @@
+qns 
+
+
+1,2,3,4,5
+ partition by id ordr by id 
+ ID:
+ 1 1
+ 2 1
+ 2 2
+ 3 1
+ 4 1
+ 4 
+ 4
+ 5
+
+
+
+ANALYTICAL FUNCTIONS / WINDOW FUNCTIONS
+-------------------------
+Dense_Rank
+Rank
+Row_number
+Lead
+Lag
+
+
+1. rank:
+------------------------
+total
+
+500
+
+498 --  1   1   1
+495 -- 2    2   2
+495 -- 2    2   3
+493  -- 4   3   4
+492 --5     4   5
+492 --5     4   6
+492 --5     4   7
+490 -- 8    5   8
+
+
+
+ MARKS  DENSE_RANK   RANK   ROW_NUMBER
+ 100        1         1      1
+ 90         2         2      2
+ 90         2         2      3
+ 85         3         4      4
+ 80         4         5      5
+ 80         4         5      6
+ 75         5         7      7
+ 
+ SYNTAX
+ ----------
+ DENSE_RANK() OVER(ORDER BY COLUMNNAME ASC/DESC);
+ 
+ dense_rank() over(ordr by marks desc )
+ 
+ 
+ 
+ /
+ SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+ DENSE_RANK() OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+
+ SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+ DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK,
+                      RANK() OVER(ORDER BY SALARY DESC) RNK
+ FROM EMPLOYEES;
+ 
+  SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+  DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK,
+                      RANK() OVER(ORDER BY SALARY DESC) RNK,
+                       ROW_NUMBER() OVER(ORDER BY SALARY DESC ) RN
+ FROM EMPLOYEES;
+ 
+ 
+  SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+  DENSE_RANK() OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES
+ WHERE DENSE_RANK() OVER(ORDER BY SALARY DESC)=3;
+ /
+ 
+ 
+ SYNTAX
+ ----------
+ DENSE_RANK() OVER(PARTITION BY COLUMNNAME ORDER BY COLUMNNAME ASC/DESC);
+ 
+ group by clause;
+ 
+ group by dep_id
+ 
+ 10 2000
+ 20 3000
+ 30 5600
+ 
+DEPT    MARKS  DENSE_RANK   RANK   ROW_NUMBER
+10      100       1          1       1
+10      90        2          2       2
+10      90        2          2       3
+10      85        3          4       4
+20      90        1           1      1
+20      85        2           2      2
+20      80        3           3      3
+30      80        1           1      1
+30      75        2           2      2
+30      75        2           2      3
+30      75        2           2      4
+30      70        3           5      5
+/
+ SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DEPARTMENT_ID,
+ DENSE_RANK() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+
+ SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DEPARTMENT_ID,DENSE_RANK() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) DRK,
+                      RANK() OVER(ORDER BY SALARY DESC) RNK
+ FROM EMPLOYEES;
+ 
+  SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DEPARTMENT_ID,
+  DENSE_RANK() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) DRK,
+        RANK() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) RNK,
+         ROW_NUMBER() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC ) RN
+ FROM EMPLOYEES;
+ /
+ 
+ 
+ 1,2,3,4,5
+ partition by id ordr by id
+ ID:
+ 1 1
+ 2 1
+ 2 2
+ 3 1
+ 4 1
+ 4
+ 4
+ 5
+ 
+ 
+ LEAD
+ -----
+it prints next record column value
+
+ SELECT EMPLOYEE_ID,SALARY,
+ LEAD(SALARY) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+  SELECT EMPLOYEE_ID,SALARY,
+  LEAD(SALARY,1,0) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+   SELECT EMPLOYEE_ID,SALARY,
+   LEAD(SALARY,2,100) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+ sales_rveenue
+ 23000
+ 24000
+ 
+   SELECT EMPLOYEE_ID,department_id,SALARY,
+   LEAD(SALARY,1,0) OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+ LAG
+ -----
+it prints PREVIOUS record colum value
+
+ SELECT EMPLOYEE_ID,SALARY,LAG(SALARY) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+  SELECT EMPLOYEE_ID,SALARY,LAG(SALARY,1,0) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+   SELECT EMPLOYEE_ID,SALARY,LAG(SALARY,2,100) OVER(ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+  SELECT EMPLOYEE_ID,SALARY,
+  DEPARTMENT_ID,LAG(SALARY) OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC)
+ FROM EMPLOYEES;
+ 
+ 
+ diff betweeen rank and dense_rank
+diff between rownum and rownumber
+diff between lead and lag
+print cumulative salary of employees table
+ print employees in give ranking based on salary ( top salary is first rank and low salary is last rank )  rank should not skip the numbers
+Difference between group functions and analytical functions
+
+/
+
+
+
+query inside another query :
+
+
+
+
+SUB QUERY
+---------------
+Normal Subquery
+From Clause Sub query / Inline view
+Multiple Column Sub Query
+Nested Sub Query
+Scalar Sub query
+Co -Related sub Query
+
+
+
+select  --subquery -- scalary subquery
+from -- subquery -- inline view/from clause subquery
+where -- nested sub query ..
+
+
+
+3rd max salary
+From Clause Sub query / Inline view
+----------------------------------
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+DENSE_RANK() OVER(ORDER BY SALARY DESC)
+FROM EMPLOYEES
+WHERE DENSE_RANK() OVER(ORDER BY SALARY DESC)=3;--ORA-30483: window  functions are not allowed here
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+WHERE DRK=3;--ORA-00904: "DRK": invalid identifier
+
+SELECT *
+FROM
+(
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+);
+--inline view
+SELECT *
+FROM
+(
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+
+)
+WHERE DRK=3;
+
+SELECT *
+FROM
+(
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,DEPARTMENT_ID,
+DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+)
+WHERE DRK=3;
+
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY
+FROM
+(
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,
+DEPARTMENT_ID,DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+)
+WHERE DRK=3;
+
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,MANAGER_ID
+FROM
+(
+SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,manager_id,
+DEPARTMENT_ID,DENSE_RANK() OVER(ORDER BY SALARY DESC) DRK
+FROM EMPLOYEES
+)
+WHERE DRK=3;--ORA-00904: "MANAGER_ID": invalid identifier
+
+SELECT *
+FROM
+(
+SELECT EMPLOYEE_ID EID,FIRST_NAME FNAME
+FROM EMPLOYEES
+)
+WHERE FNAME LIKE 'E%';
+
+/
+
+Normal Subquery
+----------------
+query used in a where clause is called normal subqueyr
+
+select *
+from employees
+where employee_id= (sub query );
+
+select *
+from employees
+where employee_id=(select employee_id from employees where salary=24000);
+
+select employee_id from employees where salary=24000;
+
+select *
+from employees
+where department_id=90;
+
+select department_id from employees where employee_id=100;
+
+select *
+from employees
+where department_id=(select department_id from employees where employee_id=100);
+
+print departmenmt details which are available in employees table
+-----------------------------------------------------------
+select * from departments;--27
+
+select distinct department_id from employees;
+
+260 : 10 emp
+select distinct d.*
+from employees e inner join departments d
+on e.department_id=d.department_id;
+
+select *
+from departments
+where department_id in (100,
+30,
+90,
+20,
+70,
+110,
+50,
+80,
+40,
+60,260,180,150,170,
+10);
+
+select *
+from departments
+where department_id in (select distinct department_id from employees);
