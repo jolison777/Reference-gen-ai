@@ -1,0 +1,341 @@
+
+
+
+group functions;
+
+sum as aggragate functions
+sum(salary), dept_id
+group by deptid
+
+sum as analytical functions
+
+sum(salary) over(partition by dept_id)
+
+
+
+
+
+
+
+
+  select * from countries
+    where region_id in(select region_id
+                        from regions);
+                        1=1,2,3,4,5,6,7
+                       
+                       
+                       
+                       
+                       
+select  salary,empid,(select )
+from
+
+Scalar Sub query
+------------------
+subquery inside a select clause is calle dscalar subqyuer
+
+select 'aimore',(select 1+5 from dual) ars
+from dual;
+
+select employee_id,'aimore',(select 1+5 from dual) ars,(select 1 from dual)
+from employees;--ORA-00913: too many values
+
+select employee_id,'aimore',(select 1+5 from dual) ars
+from employees;
+
+Co -Related sub Query
+-------------------------
+PRINT DEPARTMENT DETAILS WHICH ARE IN EMPLOYEES TABLE
+-----------------------------------------------------
+SELECT *
+FROM DEPARTMENTS
+WHERE DEPARTMENT_ID IN (SELECT DEPARTMENT_ID FROM EMPLOYEES);
+1. use exists
+2. no need to mention column name
+3.a column from inner qry will always depend on outer qry table.
+
+SELECT *
+FROM DEPARTMENTS D
+WHERE EXISTS
+(SELECT DEPARTMENT_ID FROM EMPLOYEES E WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID);
+
+SELECT *
+FROM DEPARTMENTS D
+WHERE EXISTS (SELECT 1 FROM EMPLOYEES E WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID);
+
+SELECT 1 FROM EMPLOYEES;
+
+SELECT 1 FROM EMPLOYEES WHERE EMPLOYEE_ID=105;
+
+SELECT *
+FROM DEPARTMENTS
+WHERE DEPARTMENT_ID NOT IN (100,
+30,
+90,
+20,
+70,
+110,
+50,
+80,
+40,
+60,
+10);
+
+SELECT *
+FROM DEPARTMENTS
+WHERE DEPARTMENT_ID NOT IN (SELECT DISTINCT DEPARTMENT_ID FROM EMPLOYEES where department_id is not null);
+
+SELECT *
+FROM DEPARTMENTS D
+WHERE NOT EXISTS (SELECT DEPARTMENT_ID FROM EMPLOYEES E
+WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID);
+
+SELECT *
+FROM DEPARTMENTS D
+WHERE NOT EXISTS (SELECT 1 FROM EMPLOYEES E WHERE E.DEPARTMENT_ID=D.DEPARTMENT_ID);
+
+
+SCALAR CO=RELATED SUBQUERY
+------------------------------
+PRINT FIRST_NAME,DEPARTMENT_NAME OF EMPLPOYEE 105
+-----------------------------------
+SELECT
+FROM EMPLOYEES S JOIN DEARTMENTS D
+ON
+/
+
+select employee_id,
+(select department_name from departments d where d.department_id=e.department_id) as deptname
+from employees e
+where employee_id=105;
+
+10 - 3000
+102
+
+10 100  2000  3000
+10 101  3000  3000
+10 102  4000  3000
+
+5500  -- 107
+20 106 4000
+20 107 7000
+
+
+
+PRINT DETAILS OF EMPLOYEES WHOSE SALARY IS GREATER THAN
+THEIR DEPARTMENTS AVG SALARY
+-----------------------------------------------------------------------------------------
+SELECT * FROM EMPLOYEES;
+
+1. TO FIND THE DEPARTMENT WISE AVG SALARY
+--------------------------------------------
+SELECT AVG(SALARY)--,DEPARTMENT_ID
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID;
+
+select * from
+(
+select employee_id,
+        department_id,
+       salary,
+       (SELECT AVG(SALARY)--,DEPARTMENT_ID
+        FROM EMPLOYEES e1
+        where e.department_id=e1.department_id
+        GROUP BY DEPARTMENT_ID) as avg_sal
+from employees e
+)
+where salary > avg_sal;
+
+
+Sub qry :
+-------------
+Qry embedded with in another qry is called sub qry
+in sub qry , inner qry will executed first and outer qry will executed next
+
+Types :
+---------------
+
+1) From Clause sub qry / inline view
+2) normal subqry
+3) nested subqry
+4) multiple column subqry
+5) co-related subqry
+6) Scalar subqry
+
+1) From Clause sub qry / inline view
+   if we use the subqry in the from clause that is called inline view
+
+ 
+    Dev notes: ( whenever we want to filter based on column aliaA /analytical funciutons,
+      it is not possible since alias cannot be used in where clause
+      in this case we have to push the qry as a inner qry
+      and from the outer qry we can filter based on inner qry alias )
+ 
+ 
+       
+
+2)  normal Sub qry :
+----------------------
+    sub qry in where clause is called normal subqry
+   
+    if a where clause condition value can be get it from some other query then,
+       we can create that query as inner query and match it as sub query
+
+4) multiple column subqry
+
+   it reduces number of layers in nested sub qry
+   if we are having multiple columns in our where clause with comma seperation
+   righthand side  must be a qry and not allowed direct values
+
+
+ if LHS of the where clause having multile columns then
+ RHS of the where clause must have qry not the direct values  
+
+5) co-related subqry
+   in co-related subqry, outer qry will be executed first
+    and inner qry will be executed for each record of outer qry
+   
+
+  at least a value will be passed from outer qry to inner qry
+ 
+   if use exists / not exists that qry must be a co-related subqry
+
+  co-related subqry recomedded for very low volume of records in outer qry
+
+  if we have huge volume of records in outer qry then, we have to use normal sub qry ,
+          NOT THE corelated subqry
+
+
+6) Scalar subqry
+
+   subqry in select clause is called scalar subqry,
+    in scalar sub query inner query must return only one row,
+        if it returns more than one value then
+        it ended with single row sub query returns more than one row error
+
+   so to restrict the number of records in scalar sub qry( inner qry)
+   we have to pass the value from outer to inner qry
+
+   so it will become scalar co-related sub qry.
+ 
+   Generally Scalar sub query is not recomended for production.
+   It leads performence issue for huge volume of records in the outer query.
+
+
+DDL,
+TABLE :
+--------------
+CREATE
+ALTER
+DROP
+RENAME
+TRUNCATE
+
+DML : DATA MANIPULATION LANGUAGE
+INSERT
+DELETE
+UPDATE
+
+
+DDL
+----
+DATA DEFINITION LANGUAGE - auto commit statement
+--------------------------
+CREATE
+ALTER
+DROP
+RENAME
+TRUNCATE
+
+DML
+----
+DATA MANIPULATION LANGUGAE - commit is required
+-----------------------------
+INSERT  -- commit;
+UPDATE
+DELETE
+
+TCL:
+transaction control lang
+
+commit
+rollback;
+
+drop table STUD_MASTER13;
+CREATE TABLE STUD_MASTER13(STUD_ID NUMBER,NAME VARCHAR2(20));
+
+SELECT * FROM STUD_MASTER13;
+
+commit;
+
+ROLLBACK;
+
+OLTP:
+OLAP: SNOWFLAKE, REDSHIFT..
+
+INSERT INTO STUD_MASTER13(STUD_ID, NAME)
+                   VALUES (101, 'AISHU');
+INSERT INTO STUD_MASTER1305(STUD_ID, NAME,contact)
+                   VALUES (101, 'AISHU',9876);
+
+
+commit;
+
+INSERT INTO STUD_MASTER13(STUD_ID, NAME)
+                   VALUES (102, 'Aravind');
+                   
+rollback;
+
+update
+----------
+update tablename
+set colname = value
+where clause mandatory;
+
+AISHU , ARUN
+
+UPDATE STUD_MASTER13
+SET NAME = 'ARUN'
+WHERE STUD_ID = 101;
+
+SELECT * FROM STUD_MASTER13;
+
+ROLLBACK
+
+
+SELECT * FROM STUD_MASTER1305;
+
+update STUD_MASTER1305
+set name ='ANUSUYA';--it will update for all the recors of the name column
+
+update STUD_MASTER1305
+set name ='ANUSUYA'
+where stud_id=100;
+
+update STUD_MASTER1305
+set name ='ANU',
+    contact = 6543
+where stud_id=100;
+
+ROLLBACK;
+delete
+---------
+/
+
+ROLLBACK;
+use it with where clause lese all rows will be deleteed
+
+select * from STUD_MASTER13;
+delete from STUD_MASTER13;
+
+select * from  STUD_MASTER1305 where stud_id=100;
+delete from  STUD_MASTER13 where stud_id=100;
+
+
+drop table STUD_MASTER13;
+
+rename STUD_MASTER13 to STUD_MASTER1305;
+
+SELECT * FROM STUD_MASTER1305;
+
+truncate table STUD_MASTER1305;
