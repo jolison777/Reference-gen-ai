@@ -1,0 +1,152 @@
+
+alter
+-------
+we can add a column to the table
+we can remove the column from the table
+we can rename the column in the table
+we can chnage the datatype of the column from the table
+we can increase the length of the column
+
+alter,add
+alter,drop
+alter, rename
+alter,modify
+/
+
+SELECT * FROM STUD_MASTER1305;
+
+desc STUD_MASTER1305;
+
+
+alter table STUD_MASTER1305 add phone_number number;
+
+alter table STUD_MASTER1305 add (col1 number,col2 number);
+
+alter table STUD_MASTER1305 drop column col2;
+DML:
+insert
+
+desc  STUD_MASTER1305;
+s
+alter , modify
+
+alter table STUD_MASTER1305 modify  stud_id varchar(8);
+
+
+
+it is a set of rules applied for a column:
+
+gender in ('M','F','O');
+t1 table:
+gender column:
+--------------
+M
+F
+O
+A
+B
+C
+
+while creating table:
+alter table command
+
+
+
+
+
+wHAT IS CONSTRAINTS ?
+------------------------
+CONSTRAINTS ARE THE RULE FOR THE COLUMN
+AND IT IS USED TO BLOVKTHE INVALID DATA ENTRY INTO THE COLUMNS
+
+TYPES
+PRIMARY KEY  , CAN EB CREATED ONLY ONE PRIMARY KEY TO THE TABLE
+             IT WILL NOT ACCEPT DUPLCIATES AND NULLS
+FORIENG KEY ,- IT CAN BE CREATED MULTIPLE INTO A TABLE
+              - IT WILL REFER THE DATA FORM THE PRIMARY KEY COLUMN
+        - IT WILL NOT ACCPETS THE DATA WHICH ARE NOT AVAILABLE IN THE PRIMARY KEY COLUMB
+UNIQUE KEY -  IT IWLL NOT ALLOW DUPLICATES , AND IT WILL ACCEPT NULLS , MULTIPLE NULLS ALLOWED
+NOT NULL - IT WILL NOT ALLOW THE NULL VALUE STO THE COLUMNS
+CHECK  - IT WIL LNOT ALLOW HTE VALUES WHICH ARE NOT IN THE CHECK LIST
+
+
+
+select * from employees;
+normalisation:
+first normal form
+emp_id, name, hire_date, ph_no
+100,aaa, 10 jan 2026, 983918398,98139183,9183913,91839183,91839013,01930193
+
+second normal form
+emp_id, name, hire_date, ph_no,email
+100, aaa, date, 928392842
+100, aaa, date, 0183019031
+100, aaa, date, 01930193
+100, aaa, date, 982984942
+
+
+third normal form
+master table/ parent table
+emp_id(primary key ), name, hire_date, email
+100, aaa, date, h@gmail.com
+101, bbb, date, f@gmail.com
+
+we can create only one PK for a table.
+child table
+ph_no       emp_id(foreign key)
+92849284    100
+92849284    100
+2984924     101
+9284924     101
+29829842       100
+
+select * from employees;
+emp_id ;
+employees,  dept_id FK
+
+
+
+
+
+
+metadata:
+-----------------------------
+data about data ..
+
+HR:
+data dictionary :
+select * from user_constraints
+where table_name = 'EMPLOYEES';
+
+R - referential integrity :
+
+
+select * from user_tables;
+
+select * from user_tab_columns
+where table_name = 'EMPLOYEES';
+
+
+
+
+
+
+
+departments , dept_id pk?
+
+select * from departments;
+
+
+
+
+
+
+
+
+alter table STUDENT_MASTER add constraint ck01_student_name01 check(student_name is not null);
+alter table STUDENT_MASTER add constraint ck01_GENDER01 check(GENDER IN ('M','F'));
+alter table STUDENT_MASTER add constraint uk01_student_email unique (student_email);
+alter table STUDENT_MASTER add constraint ck_student_email check(student_email is not null);
+
+alter table STUDENT_MASTER add gender Varchar2(20);
+alter table STUDENT_MASTER add constraint ck01_gender Check (gender in ('M','F'));
