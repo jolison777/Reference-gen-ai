@@ -1,0 +1,329 @@
+Data Structures
+===============
+
+
+a=10;
+b="abc"
+
+A Data Structure is a way of storing and organizing data.
+
+
+Four commonly used data structures:
+
+Lists
+Tuples
+Sets
+Dictionaries
+
+Lists (Shopping Lists)
+=====
+
+A List is a collection where you can store multiple values (items).
+You can change the items later (mutable).
+Items are stored in order, and duplicates are allowed.
+Used to store Temporary data
+
+
+mutable  -- modify the things
+immutable -- we cannot change
+
+a= []
+
+fruits = ['apple', 'grape', 'orange']
+
+Operation   Syntax              Example
+Access      list[index]         fruits[1] → 'banana'
+Modify      list[index] = value     fruits[0] = 'mango'
+Append      list.append(item)       fruits.append('grape')
+Extend      list.extend([item1, item2]) fruits.extend(['kiwi', 'pear'])
+Remove      list.remove(item)       fruits.remove('orange')
+Sort        list.sort()         fruits.sort()
+Length      len(list)           len(fruits) → 3
+
+a = [1,2,3,4,5]
+print(a[1:4])
+
+a = [1,2,3,4,5]
+print(a[1:4:2])
+
+a = [1,2,3,4,5]
+a.insert(0,100)
+print(a)
+
+a = [1,2,3,4,5]
+a.insert(-1,100)
+print(a)
+
+
+a = [1,2,3,4,5]
+a.pop(2)
+print(a)
+
+a = [1,2,3,4,5]
+b = a
+print(b)
+
+Access
+------
+
+fruits = ['apple', 'banana', 'orange',"grape","papaya","melon"]
+
+print(fruits[1])
+
+print(fruits[5])
+
+print(fruits[-4])
+
+
+# positive index starts from 0;
+# negative inds starts from -1;
+
+Modify
+------
+
+fruits = ['apple', 'banana', 'orange']
+
+fruits[0] = 'mango'
+print(fruits)
+
+
+# fruits[0] means the element at index 0
+# The value at index 0 is 'apple'
+# Python replaces 'apple' with 'mango'
+# lists are mutable, meaning their contents can be changed after creation.
+
+Append
+------
+
+# It is a list method that adds one item to the end of a list.
+# accepts only one argument.
+
+fruits = ['apple', 'banana', 'orange']
+
+fruits.append('grape')
+print(fruits)
+
+Extend
+------
+
+# extend() adds each element from another iterable into the existing list.
+
+fruits = ['apple', 'banana', 'orange']
+
+fruits.extend(['kiwi', 'pear'])
+print(fruits)
+
+fruits.extend('mango')  
+print(fruits)  
+
+Remove
+------
+# It deletes an element by value, not by index.
+
+
+fruits = ['apple', 'banana', 'orange']
+
+fruits.remove('banana')
+print(fruits)
+
+fruits.remove('grape')
+
+Sort
+----
+#sort() arranges the list in order.
+
+fruits = ['banana', 'apple', 'orange']
+
+#asc
+fruits.sort()
+print(fruits)
+
+#desc order
+fruits.sort(reverse=True)
+print(fruits)
+
+
+len
+---
+# len() means length.
+
+#It returns the number of items in a list.
+
+fruits = ['apple', 'banana', 'orange']
+
+print(len(fruits))
+
+
+============================================================
+
+print()
+variable_name.count()
+list_name.count()
+tuple_name.count()
+
+list_name = [1,2,3,4]
+tuple_name = (1,2,3,4)
+set_name = {1,2,3,4}
+
+Tuple (Like PAN Card details)
+=====
+
+-> A tuple is like List but we can't change it (immutable)
+-> It is also ordered and allows duplicates.
+-> It is faster than List.
+
+
+
+
+we cannot midify :
+a = ()
+
+Creating a Tuple:
+fruits = ("apple", "grape", "orange")
+
+
+#Tuple maintains the insertion order.
+fruits = ("apple", "grape", "orange")
+print(fruits)
+
+
+#After creation, elements cannot be changed.
+fruits = ("apple", "grape", "orange")
+fruits[0] = "banana"
+
+#Duplicate values are allowed.
+fruits = ("apple", "grape", "apple")
+print(fruits)
+
+
+
+
+Operation   Syntax          Example Description
+Access      tuple[index]        fruits[1] → 'grape'
+Count       tuple.count(item)   fruits.count('apple') → 1
+Index       tuple.index(item)   fruits.index('orange') → 2
+Length      len(tuple)      len(fruits) → 3 
+Concatenation   tuple1 + tuple2 fruits + ('kiwi',) → ('apple','grape','orange','kiwi')
+
+Access
+------
+
+fruits = ('apple', 'grape', 'orange')
+
+print(fruits[0]) 
+print(fruits[-1])
+print(fruits[5])
+
+Count
+-----
+#Returns the number of occurrences of a value.
+
+fruits = ('apple', 'grape', 'orange', 'apple', 'apple')
+print(fruits.count('apple'))
+print(fruits.count('banana'))
+
+index
+-----------
+
+#Returns the position of the first occurrence.
+
+fruits = ("apple", "grape", "orange")
+
+print(fruits.index("orange"))
+
+Length
+------
+#Returns total number of elements.
+
+print(len(fruits))
+
+Concatenation
+-------------
+#Combines two tuples.
+
+fruits = ("apple", "grape", "orange")
+
+new_fruits = fruits + ("kiwi",) # The comma tells Python it is a single-element tuple.
+print(new_fruits)
+
+
+Difference Between List and Tuple:
+------------------------------------
+Feature     List    Tuple
+-----------------------------
+Symbol      []  ()
+Mutable     Yes No
+Ordered     Yes Yes
+Duplicates  Yes Yes
+Faster      No  Yes
+Add Elements    Yes No
+Remove Elements Yes No
+
+Set
+===
+
+-> It is an inbuild Data structure which does not allow duplicates.
+-> it is unordered
+-> It is Mutable
+-> Does not support indexing (set[0] is invalid)
+
+union -> It combines all unique elements from both sets.
+intersection -> shows matched data between the data sets
+minus -> Returns items present in the first set but not in the second set.
+
+
+a-b; 
+
+a= 123
+b = 234
+1
+a= {}
+
+numbers = {1, 2, 3, 4, 5}
+print(numbers)  
+
+data = [10, 20, 10, 30, 20, 40]
+unique_data = set(data)
+print(unique_data)
+
+
+a = {123, 2, 3}
+b = {3, 4, 5}
+
+a.add(10)
+print(a)
+
+a.remove(123)
+print(a)
+
+print(a | b)
+print(a & b)
+print(a - b)
+
+city_data = [
+    'Chennai', 'Mumbai', 'Delhi', 'Chennai',
+    'Bangalore', 'Mumbai', 'Hyderabad',
+    'Delhi', 'Kolkata', 'Pune',
+    'Delhi', 'Hyderabad',
+    'Chennai', 'Mumbai'
+] * 1000
+#Python repeats the entire list 1000 times.
+
+print(len(city_data))
+
+unique_cities = set(city_data)
+print(unique_cities)
+print(len(unique_cities))
+
+
+HW:
+1. Create a list of 5 fruits. Print the first and last fruit.
+2. Given a list ['red', 'green', 'blue'], change 'green' to 'yellow' and print the list.
+3. Create a list [1, 2, 3]. Append 4 and extend it with [5, 6, 7]. Print the final list.
+4. Given ['apple', 'banana', 'orange', 'banana'], remove the first 'banana' and print the list.
+5. Given [10, 20, 10, 30, 10], remove the second occurrence of 10 and print the list.
+6. Given [10, 20, 30, 40, 50, 60], print first 3 elements, last 3 elements, and every 2nd element.
+7. Given ['zebra', 'apple', 'monkey', 'banana'], sort the list in ascending and descending order.
+8. Given ('a', 'b', 'c', 'a', 'd'), print count of 'a', index of 'c', and length of the tuple.
+9. Given [1, 2, 2, 3, 4, 4, 5, 5, 5], convert to a set and print unique values and count of unique values.
+10.Given ['Chennai', 'Mumbai', 'Delhi', 'Chennai', 'Mumbai', 'Pune'], find total entries, unique cities, and number of unique cities.
