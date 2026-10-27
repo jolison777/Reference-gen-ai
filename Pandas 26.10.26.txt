@@ -1,0 +1,180 @@
+from math import xyz --use, invliad import 
+
+
+from math import sqrt
+
+print(sqrt(25)); 5
+
+
+
+==========================================================================================================
+Pandas
+======
+
+-> It is a Data Frame or Library.
+-> It is used for analyzing, cleaning and manipulating data.
+
+import pandas
+
+data = {
+  'name': ["Sugumar", "Raja", "Maari"],
+  'mark': [88, 76, 80]
+}
+
+x = pandas.DataFrame(data)
+
+print(x)
+
+//
+
+import pandas as pd
+
+data = {
+  'name': ["Sugumar", "Raja", "Maari"],
+  'mark': [88, 76, 80]
+}
+
+x = pd.DataFrame(data)
+
+print(x)
+
+//
+
+Series (Method)
+======
+
+A Pandas Series is like a column in a table.
+It is a one-dimensional array holding data of any type.
+Series is like a column, a DataFrame is the whole table.
+
+import pandas as pd
+
+a = [100, 77, 82]
+
+x = pd.Series(a)
+
+print(x)
+
+//
+
+#Create our own labels
+
+import pandas as pd
+
+a = [100, 77, 82]
+
+x = pd.Series(a, index = ["Raja", "Sugumar", "Maari"])
+
+print(x)
+
+//
+
+import pandas as pd
+
+a = [100, 77, 82]
+
+x = pd.Series(a, index = ["Raja", "Sugumar", "Maari"])
+
+print(x["Sugumar"])
+
+//
+
+import pandas as pd
+
+temperature = {"day1": 37, "day2": 38, "day3": 41}
+
+x = pd.Series(temperature)
+
+print(x)
+
+//
+
+import pandas as pd
+
+temperature = {"day1": 37, "day2": 38, "day3": 41}
+
+x = pd.Series(temperature)
+
+print(x["day2"])
+
+-> Pandas is a Data Frame.
+-> It is 2 Dimensional.
+-> 2 Dimensional means Rows and Columns.
+
+import pandas as pd
+
+data = {
+  'name': ["Sugumar", "Raja", "Maari"],
+  'mark': [88, 76, 80]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+//
+
+
+Import CSV File
+===============
+
+import pandas as pd
+
+df = pd.read_csv(r"C:\Users\Admin\Pictures\emp.csv")
+
+print(df)
+
+//
+
+import pandas as pd
+
+df = pd.read_csv(r"C:\Users\Admin\Pictures\emp.csv")
+
+print(df.to_string())
+
+
+
+Play with data
+==============
+
+import pandas as pd
+df = pd.read_csv(r" C:\Users\Admin\Pictures\emp.csv  ")
+print(df.head(10))
+
+//
+
+import pandas as pd
+df = pd.read_csv(r" C:\Users\Admin\Pictures\emp.csv  ")
+print(df.tail(10))
+
+//
+
+import pandas as pd
+df = pd.read_csv(r" C:\Users\Admin\Pictures\emp.csv  ")
+print(df.head(10).to_string())
+
+//
+
+#info() shows number of null in each column
+
+import pandas as pd
+df = pd.read_csv(r" C:\Users\Admin\Pictures\emp.csv  ")
+print(df.info())
+
+
+df.head() First 5 rows
+df.tail() Last 5 rows
+print(df.shape) Size of dataset
+df.info() Full summary
+df.describe() Statistics
+df.columns Column names
+
+import pandas as pd
+df = pd.read_csv(r" C:\Users\Admin\Pictures\emp.csv  ")
+print(df.to_string())
+print(df.isnull().sum())
+print("Removing completely empty rows")
+df = df.dropna(how="all") #any
+print(df.to_string())
+print(df.isnull().sum())
+

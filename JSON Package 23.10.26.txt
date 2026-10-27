@@ -1,0 +1,181 @@
+JSON Package
+============
+
+JSON is a syntax for storing and exchanging data.
+JSON is text, written with JavaScript object notation.
+
+x =  '{ "name":"Sitharth", "age":30, "city":"Chennai"}'
+y =  { "name":"Sitharth", "age":30, "city":"Chennai"}
+
+print(type(x))
+print(type(y))
+
+//
+
+json.loads()
+
+
+
+
+
+
+dumps
+
+loads
+
+import json --json pkg
+Try Except Block
+================
+
+Python mainly has 3 types of errors:
+Syntax Errors  - fix
+Runtime Errors - fix or handle using exceptions
+Logical Errors - fix
+
+
+
+business rules:
+
+
+
+
+18 > eligvile of rlicense
+18 < not eligible
+
+18
+
+
+
+if a<b:
+
+function prime_number(s):
+input validate
+proceed
+exception
+s= 827492
+s="iwuiw" --
+
+
+enter only numbers
+entered number is invalid ..
+
+
+
+try:
+    a = int(input("enter number"))
+    b =0
+    print(a/b)
+except Exception as e :
+    print("cant be divided by 0", e)
+else:
+
+
+try:
+snowflake /oracle db
+inserting rec into employees
+except:
+
+else:
+print("")
+insert into auditTable ()
+finally:
+ print("changes saved successfully ")
+
+print("error occurred/ system error ")
+
+
+
+
+audit tables:
+
+emp ,dep ..dml operation
+
+audit . insert 35 rows affected
+12 rows has been changed  
+
+   
+
+try block will be at start of a code
+The except block will handle the error.
+The else block will execute code when there is no error.
+The finally block lets you execute code, regardless of the result of the try- and except blocks.
+
+| Exception         | Meaning                   | Fix                   |
+| ----------------- | ------------------------- | --------------------- |
+| NameError         | Variable not defined      | Define variable       |
+| TypeError         | Wrong data type operation | Convert type          |
+| ValueError        | Invalid value format      | Validate input        |
+| IndexError        | Invalid list index        | Check length          |
+| KeyError          | Missing dictionary key    | Use `.get()`          |
+| ZeroDivisionError | Dividing by zero          | Check before division |
+| FileNotFoundError | File missing              | Verify path           |
+| AttributeError    | Object has no attribute   | Check method name     |
+| ImportError       | Module missing            | Install module        |
+| IndentationError  | Wrong indentation         | Fix spacing           |
+
+
+
+-amount
+print("")
+
+
+print(x)
+
+
+try:
+  print(x)
+except:
+  print("An exception occurred")
+
+//
+
+try:
+  print(x)
+except NameError:
+  print("Variable x is not defined")
+except:
+  print("Something else went wrong")
+
+//
+
+try:
+    print(my_dict["username"])
+except KeyError:
+    print("Username not found")
+except:
+    print("Something else went wrong")
+
+//
+
+try:
+    x = {"name": "Sitharth"}
+    print(x["username"])
+except KeyError:
+    print("Username not found")
+except:
+    print("Something else went wrong")
+
+//
+
+try:
+  print("Hello")
+except:
+  print("Something went wrong")
+else:
+  print("Nothing went wrong")
+
+/
+
+try:
+  a = int(input("enter a number"))
+  b = a / 0
+  print(a)
+except ZeroDivisionError:
+  print("Number cannot be divided by zero")
+
+try:
+  a = int(input("enter a number"))
+  b = a / 0
+  print(a)
+except Exception as e:
+  print("ABC",e)
