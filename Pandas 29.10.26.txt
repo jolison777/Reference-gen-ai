@@ -1,0 +1,246 @@
+import pandas as pd
+df = pd.read_csv(r"C:\Users\Admin\Pictures\emp.csv")
+print("Removing Completely Empty Rows")
+i = 0
+while i < len(df):
+    row = df.loc[i]
+    if row.isnull().sum() == len(row):
+        df = df.drop(index=i)
+        df = df.reset_index(drop=True)
+       
+    else:
+        i += 1
+print(df.to_string())
+
+
+
+import pandas as pd
+import numpy as np
+df = pd.read_csv(r"C:\Users\Admin\Pictures\emp.csv")
+print("Assigning NaN to invalid Salary")
+for index in df.index:
+    age_value = df.loc[index, "SALARY"]
+    if not str(age_value).replace(".", "").isdigit():
+        df.loc[index, "SALARY"] = np.nan
+print(df.to_string())
+
+
+for index in df.index:
+    if pd.isnull(df.loc[index, "FIRST_NAME"]):
+        df.loc[index, "FIRST_NAME"] = "Unknown"
+print(df.to_string())
+
+
+
+nserting single row to the existing dataframe
+------------------------------------------------
+import pandas as pd
+
+# Existing DataFrame
+df = pd.DataFrame({
+    "Name": ["John", "Mary"],
+    "Age": [29, 30]
+})
+
+# Insert single row
+df.loc[len(df)] = ["Ravi", 28]
+
+print(df)
+
+Inserting multiple rows to the existing dataframe
+------------------------------------------------
+
+import pandas as pd
+
+# Existing DataFrame
+df = pd.DataFrame({
+    "Name": ["John", "Mary"],
+    "Age": [29, 30]
+})
+
+# Insert multiple rows
+df = pd.concat([
+    df,
+    pd.DataFrame([
+        {"Name": "Ravi", "Age": 28},
+        {"Name": "Anita", "Age": 27},
+        {"Name": "Karan", "Age": 26}
+    ])
+], ignore_index=True)
+
+print(df)
+
+
+
+
+print("Assigning NaT to invalid Hire_date")
+for index in df.index:
+    date = str(df.loc[index, "HIRE_DATE"])
+    if "-" in date and len(date) == 10 and date.count("-") == 2:
+        parts = date.split("-")
+        if not (parts[0].isdigit() and parts[1].isdigit() and parts[2].isdigit()):
+            df.loc[index, "HIRE_DATE"] = pd.NaT
+        elif int(parts[0]) > 31 or int(parts[1]) > 12 or int(parts[2]) > 2026:
+            df.loc[index, "HIRE_DATE"] = pd.NaT
+    else:
+        df.loc[index, "HIRE_DATE"] = pd.NaT
+print(df.to_string())
+
+
+Comparing dataframes:
+
+| Symbol | Used For         | Why                     |
+| ------ | ---------------- | ----------------------- |
+| `( )`  | Function call    | groupby(), sum()        |
+| `[ ]`  | Column selection | selecting SALARY column |
+
+Function
+--------
+ A function is a block of reusable code
+ It performs a specific task
+ It can exist independently
+
+Syntax := function_name()
+
+| Function        | Type     | Purpose                       |
+| --------------- | -------- | ----------------------------- |
+| `print()`       | Built-in | Displays output               |
+| `pd.read_csv()` | Pandas   | Reads CSV file into DataFrame |
+| `pd.merge()`    | Pandas   | Joins two DataFrames          |
+| `np.where()`    | NumPy    | Conditional column creation   |
+
+Method
+----------
+ A method is a function that belongs to an object
+ It is called using dot . notation
+
+Syntax := object.method()
+
+| Method            | Applied On | Purpose                 |
+| ----------------- | ---------- | ----------------------- |
+| `.head()`         | DataFrame  | Shows first 5 rows      |
+| `.unique()`       | Series     | Shows distinct values   |
+| `.between()`      | Series     | Filters range values    |
+| `.isin()`         | Series     | Filters matching values |
+| `.count()`        | Series     | Counts non-null values  |
+| `.mean()`         | Series     | Calculates average      |
+| `.sum()`          | Series     | Calculates total        |
+| `.groupby()`      | DataFrame  | Groups data             |
+| `.sort_values()`  | DataFrame  | Sorts data              |
+| `.isnull()`       | Series     | Detects NULL values     |
+| `.fillna()`       | Series     | Replaces NULL values    |
+| `.rank()`         | Series     | Assigns ranking         |
+| `.shift()`        | Series     | Gets previous row value |
+| `.str.contains()` | Series     | String search           |
+| `.str.upper()`    | Series     | Converts to uppercase   |
+| `.str.lower()`    | Series     | Converts to lowercase   |
+
+| Syntax                      | Type             | Returns   | Purpose                 |
+| --------------------------- | ---------------- | --------- | ----------------------- |
+| `df['column']`              | Single column    | Series    | Select one column       |
+| `df[['col1','col2']]`       | Multiple columns | DataFrame | Select multiple columns |
+| `df[condition]`             | Row filtering    | DataFrame | Filter rows             |
+| `df.groupby('col')['col2']` | Group + Select   | Series    | Aggregate column        |
+| `df['new_col'] = value`     | Assignment       | DataFrame | Create/Update column    |
+| `df['col'].str[:3]`         | Column slicing   | Series    | Extract substring       |
+-----------------------------------------------------------------------------------------
+
+
+#print(employees)  --> prints all column values
+#print(employees['SALARY']) --> prints salary column
+#print(employees['SALARY'].head()) --> prints salary column(only first 5 rows)
+#print(employees['SALARY'] > 10000) --> prints true for satisfied conditions and false for other values (boolean)
+#print(employees[employees['SALARY'] > 10000]) --> prints all columns which are true
+--------------------------------------------------------------------------------------------
+
+import pandas as pd
+import numpy as np
+
+employees = pd.read_csv(r"F:\backup\SugumarStuffs\Data Analyst\Sample Data Files\Employees.csv")
+departments = pd.read_csv(r"F:\backup\SugumarStuffs\Data Analyst\Sample Data Files\Departments.csv")
+
+print("Employees Data:")
+print(employees.head())
+
+print("\nDepartments Data:")
+print(departments.head())
+
+print("\nSelect specific columns:")
+print(employees[['FIRST_NAME','LAST_NAME','SALARY']].head())
+
+print("\nDistinct Job IDs:")
+print(employees['JOB_ID'].unique())
+
+print("\nEmployees with salary > 10000:")
+print(employees[employees['SALARY'] > 10000])
+
+print("\nEmployees with salary between 5000 and 15000:")
+print(employees[employees['SALARY'].between(5000,15000)])
+
+print("\nEmployees in Dept 60 or 90:")
+print(employees[employees['DEPARTMENT_ID'].isin([60,90])])
+
+print("\nEmployees whose first name contains 'an':")
+print(employees[employees['FIRST_NAME'].str.contains("an", case=False)])
+
+
+print("\nEmployees whose first name starts with 'S':")
+print(employees[employees['FIRST_NAME'].str.startswith("S")])
+
+
+print("\nTotal number of employees:")
+print(employees['EMPLOYEE_ID'].count())
+
+print("\nAverage salary:")
+print(employees['SALARY'].mean())
+
+print("\nTotal salary grouped by department:")
+print(employees.groupby('DEPARTMENT_ID')['SALARY'].sum())
+
+print("\nEmployees with department names (INNER JOIN):")
+merged = pd.merge(employees, departments,
+                  left_on='DEPARTMENT_ID',
+                  right_on='DEPARTMENT_ID',
+                  how='inner')
+print(merged[['FIRST_NAME','LAST_NAME','SALARY','DEPARTMENT_NAME']].head())
+
+print("\nTop 5 highest paid employees:")
+print(employees.sort_values(by='SALARY', ascending=False).head(5))
+
+print("\nEmployees with NULL commission:")
+print(employees[employees['COMMISSION_PCT'].isnull()])
+
+print("\nFill NULL commission with 0:")
+employees['COMMISSION_PCT'] = employees['COMMISSION_PCT'].fillna(0)
+print(employees[['FIRST_NAME','COMMISSION_PCT']].head())
+
+print("\nNames in UPPER case:")
+print(employees['FIRST_NAME'].str.upper().head())
+
+print("\nNames in LOWER case:")
+print(employees['FIRST_NAME'].str.lower().head())
+
+print("\nFirst 3 letters of names:")
+print(employees['FIRST_NAME'].str[:3].head())
+
+print("\nConcatenate first and last names:")
+print(employees['FIRST_NAME'] + ' ' + employees['LAST_NAME'])
+
+
+print("\nEmployees with ranking and lag salary:")
+employees['salary_rank'] = employees['SALARY'].rank(method='dense', ascending=False)
+employees['dept_rank'] = employees.groupby('DEPARTMENT_ID')['SALARY'].rank(method='dense', ascending=False)
+employees['lag_salary'] = employees['SALARY'].shift(1)
+
+print("\nEmployees with ranking and lag salary:")
+print(employees[['FIRST_NAME','SALARY','salary_rank','dept_rank','lag_salary']].head())
+
+print("\nEmployees in IT department:")
+it_ids = departments[departments['DEPARTMENT_NAME']=='IT']['DEPARTMENT_ID']
+
+print(employees[employees['DEPARTMENT_ID'].isin(it_ids)])
+
+print("\nEmployees with salary levels (High/Low):")
+employees['salary_level'] = np.where(employees['SALARY'] > 10000, 'High', 'Low')
+
+print(employees[['FIRST_NAME','SALARY','salary_level']].head()
