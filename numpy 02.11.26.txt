@@ -1,0 +1,81 @@
+py -m pip install numpy
+
+google colab
+
+
+NumPy:
+It is Numerical Python.
+It is used for working with numbers and arrays.
+It stores datas like a list but it is much faster than list.
+List -> Calulations are slower; array -> calculations are much faster.
+NumPy is written in Python, but internally it uses C language.
+
+Array:
+Stores multiple values in a single variable and the values are in same data type.
+values are strored in ordered way.
+
+----------------------------------------------------------------
+    list   |   Array |
+----------------------------------------------------------------
+1. store diff data type | Stores only same data type |
+2. Slower for calculation | Faster because it is optimised|
+3. cannot directly perfom | Supports directly |
+   element wise calculation | |
+4. Uses More memory | Uses Less memory |
+------------------------------------------------------------------
+
+NumPy uses C to:
+Store arrays efficiently
+Perform fast mathematical operation
+
+numpy example:
+--------------
+import numpy as np
+x = np.array([1, 2, 3, 4, 5])
+print(x)
+print(type(x))
+
+dimension in array:
+-------------------
+      1.0-D Array (Zero Dimension)
+It is just a single value (scalar)
+No rows, no columns
+import numpy as np
+arr = np.array(10)
+
+      2.1-D Array (Single Dimension)
+A list of values
+Only one direction (row)
+arr = np.array([1, 2, 3, 4])
+
+      3.2-D Array (Two Dimension)
+Has rows and columns
+Looks like a table
+arr = np.array([[1, 2], [3, 4]])
+print(arr[0][1])
+
+      4.3-D Array (Multiple Dimension)
+Collection of 2D arrays
+Like a stack of tables
+arr = np.array([[[1,2],[3,4]], [[5,6],[7,8]]])
+print(arr[1][0][1])
+print(arr.shape)
+//
+
+import numpy as np
+x = np.array([[1,2,3,4,5], [6,7,8,9,10], [11,12,13,14,15]])
+print(x[1, 2]) #(row_index, col_index)
+print(x.shape)   # (3, 5) → 3 rows, 5 columns
+print(x.ndim)    # 2     → 2D array
+print(x.dtype)   # int64 → Data type of elements
+
+//
+
+import numpy as np
+x = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+print(x[1, 0, 1]) #( layers , rows , columns )
+
+The first number is for 1st dimension
+The second number is for 2nd dimension
+The third number is for 3rd dimension
+//

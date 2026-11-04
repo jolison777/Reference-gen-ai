@@ -1,0 +1,151 @@
+
+
+where():
+--------
+check a condition and return values based on that condition
+
+Syntax:
+np.where(condition, value_if_true, value_if_false)
+If condition is TRUE → take first value
+If condition is FALSE → take second value
+
+If you use only condition:
+
+import numpy as np
+x = np.array([10, 20, 30, 40, 30, 30])
+y = np.where(x == 30) #np.where() always returns a tuple
+print(y)
+
+import numpy as np
+x = np.array([10, 20, 30, 40, 30, 30])
+y = np.where(x == 30)[0]
+print(y) #only array part
+
+arr = np.array([10, 20, 30])
+print(np.where(arr > 15))
+output:
+(array([1, 2]),) # It returns indexes, in tuple format not values
+
+arr = np.array([10, 20, 30])
+print(np.where(arr > 15)[0]) #[0] means Give me only the index array
+output:
+[1, 2]
+
+import numpy as np
+arr = np.array([10, 20, 30, 40])
+indexes = np.where(arr > 20)[0]
+result = arr[indexes]
+print(result)
+
+import numpy as np
+arr = np.array([10, 20, 30, 40])
+result = np.where(arr > 20, arr, 0)
+print(result)
+output: [ 0  0 30 40]
+
+import numpy as np
+arr = np.array([10, 20, 30, 40])
+result = arr[arr > 20] #This is called Boolean Indexing
+print(result)
+
+import numpy as np
+mark = np.array([95, 85, 75, 45])
+status = np.where(mark >= 50, "Pass", "Fail")
+print(status)
+
+import numpy as np
+price = np.array([10000, 25000, 30000, 15000])
+discounted_price = np.where(price > 20000, price - (price * 0.1), price)
+print(discounted_price)
+
+1,2,3,4
+1 2 3 4
+
+78.
+45.
+
+
+import numpy as np
+data = np.array([45, -1, 78, 0, -1, 90])  # -1 means "missing"
+cleaned = np.where(data == -1, np.nan, data)
+print(cleaned) # Integer arrays cannot hold missing values in NumPy
+
+2D Array Example:
+-----------------
+
+arr = np.array([
+    [10, 30],
+    [40, 15]
+])
+
+result = np.where(arr > 20, "Yes", "No")      # here also we can directly use arr[arr > 20] but it flatted 2D to 1D
+print(result)
+
+output:
+[['No' 'Yes']
+ ['Yes' 'No']]
+
+3D Array Example:
+-----------------
+
+arr = np.array([
+    [[10, 25], [35, 5]],
+    [[50, 15], [20, 45]]
+])
+
+condtion, 2nd param if cond is true, if cond is false
+result = np.where(arr > 20, 1, 0)
+print(result)
+
+output:
+
+[[[0 1]
+  [1 0]]
+
+ [[1 0]
+  [0 1]]]
+
+Random:
+--------
+random means generating random numbers (values) using built-in functions.
+
+It is used for:
+Sample data
+Testing data
+Simulations
+Machine learning
+
+np.random.rand(3) # Random float (0 to 1)
+np.random.randint(1, 10, 5) # Random integers Between 1 and 9, Generate 5 numbers # np.random.randint(low, high, size)
+np.random.choice([10, 20, 30]) # Random choice Picks randomly from given list
+np.random.rand(2, 3) # Random array (2D)
+np.random.seed(1)
+np.random.rand(2,3) # Fixes the random output, Useful for testing makes results repeatable
+
+In machine learning, we use seed to make sure:
+Model training gives same results every time
+Easy to debug issues
+Results are reproducible across environments
+
+import numpy as np
+from numpy import random
+df = random.rand(2, 3) * 10000  # 2 rows and 3 columns
+print(df)
+
+import numpy as np
+from numpy import random
+x = random.randint(100) #randint(low, high)
+print(x)
+
+rand() returns floats
+randint() returns whole numbers which is useful good data simulation.
+
+import numpy as np
+from numpy import random
+ages = np.random.randint(1, 10)
+print(ages)
+
+import numpy as np
+from numpy import random
+ages = np.random.randint(1, 10, size=3)
+print(ages)
