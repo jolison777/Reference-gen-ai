@@ -1,0 +1,192 @@
+offer letter
+relieving letter
+last company, 3 months payslip
+PF service history
+
+standard deviation
+variance
+
+mean -- avg ..
+
+outliers
+
+
+
+
+40k,50, 10k,1L, billions(ambani, industailist, cine celebrities )
+
+40k,50, 10k,1L,null,null..
+
+
+
+
+
+
+
+
+
+Data = [10, 20, 30, 40, 50]
+
+Standard Deviation
+==================
+
+-> to find standard deviation we must find Variance.
+
+employee_id
+
+100
+101
+102
+103
+1000 -> Outlier
+104
+105
+
+bone_density
+
+104.8
+120.1
+131.7
+13.4  -> outlier
+115.0
+117.4
+
+.std()
+-> How to find variance?
+
+Data = [10, 20, 30, 40, 50]
+
+Mean = 150/5 = 30
+
+(10 - 30)^2 = 400
+(20 - 30)^2 = 100
+(30 - 30)^2 = 0
+(40 - 30)^2 = 100
+(50 - 30)^2 = 400
+
+Total = 400+100+0+100+400 = 1000
+1000 / 5 = 200
+Variance = 200
+
+144,169, 186,225.. 14.14
+
+Standard Deviation = Root of Variance
+Standard Deviation = Root of 200 = 14.14 (approx)
+
+Mean Value = 30
+Good Data should have Deviation up to 16 as Lower Value and 44 as Higher Value.
+
+The correct order is:
+
+1. Find Mean
+2. Use mean to find Variance
+3. Take square root of variance to get Standard Deviation
+
+Data = [10, 20, 30, 40, 50]
+
+ Mean
+Mean = 150 / 5 = 30
+
+ Variance
+Find (value − mean)² for each
+Add them = 1000
+Divide by 5 = 200
+
+Variance = 200
+
+√200 = 14.14
+
+Percentile
+==========
+
+-> it is the value below a certain percentage of data falls.
+-> Percentile method 1st sorts the data in Array in Ascending Order.
+10, 30, 20, 40, 50
+10, 20, 30, 40, 50
+0,   1  ,2  ,3,  4
+
+import numpy as np
+data = [10, 30, 20, 40, 50]
+q1 = np.percentile(data, 25)
+q3 = np.percentile(data, 75)
+
+If a value is at the 25th percentile, it means:
+
+25% of the data is below that value
+75% of the data is above it
+
+-> How to find 25th Percentile?
+
+P = (n-1)/100 * 25
+P = (5-1)/100 * 25
+P = 4/100 * 25
+P = 0.04 * 25
+P = 1
+
+
+So for 25th percentile the data is at index 1 which is 20
+
+DMAS
+Division Multiplication Addition Subtraction
+
+-> How to find 75th Percentile?
+
+P = (n-1)/100 * 75
+P = (5-1)/100 * 75
+P = 4/100 * 75
+P = 0.04 * 75
+P = 3
+
+So for 75th percentile the data is at index 3 which is 40
+
+q1 = 20
+q3 = 40
+
+Suppose 5 students scored:
+
+40, 50, 60, 70, 80
+
+If you scored 60,
+
+Percentage = 60% (if total is 100)
+
+Percentile = 50th percentile
+Because 50% of students scored below you.
+
+| Percentage           | Percentile                       |
+| -------------------- | -------------------------------- |
+| Based on total marks | Based on ranking                 |
+| Fixed formula        | Depends on other people's scores |
+| Example: 80%         | Example: 90th percentile         |
+| Individual score     | Relative position                |
+
+/
+
+How to find Outlier?
+
+Interquartile Range
+IQR = Q3 − Q1
+IQR = q3 - q1 = 40 - 20 = 20
+
+Lower = q1 - 1.5 * IQR = 20 - 1.5 * 20 = 20 - 30 = -10
+Higher = q3 + 1.5 * IQR = 40 + 1.5 * 20 = 40 + 30 = 70
+
+for val in data:
+if val < Lower or val > Higher:
+print("Outlier: ", val)
+
+/
+import numpy as np
+data = [10, 30, 20, 40, 50]
+q1 = np.percentile(data, 25)
+q3 = np.percentile(data, 75)
+IQR = q3 - q1
+
+Lower = q1 - 1.5 * IQR
+Higher = q3 + 1.5 * IQR
+
+for val in data:
+    if val < Lower or val > Higher:
+        print("Outlier:", val)
+    else:
+        print("No outlier")
