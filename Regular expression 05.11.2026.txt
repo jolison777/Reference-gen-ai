@@ -1,0 +1,437 @@
+
+Regular Expression
+----------------------
+Regular Expression (Regex) is a pattern used to search, match, or manipulate text.
+
+It helps to:
+-----------------
+Find specific words
+Validate formats (email, phone number) --
+1. @, 2. . , .com
+10 digit, +91
+Replace text
+Extract data
+
+| Purpose         | Example                    |
+| --------------- | -------------------------- |
+| Search text     | Find word "Python"         |
+| Validate email  | Check correct email format |
+| Extract numbers | Get numbers from string    |
+| Replace text    | Replace "cat" with "dog"   |
+| Data cleaning   | Remove special characters  |
+
+
+| Symbol | Meaning              | Example  |
+| ------ | -------------------- | -------- |
+| `.`    | Any single character | `a.b`    |
+| `\d`   | Digit (0-9)          | `\d\d`   |
+| `\w`   | Letter or digit      | `\w+`    |
+| `+`    | One or more times    | `a+`     |
+| `*`    | Zero or more times   | `a*`     |
+| `^`    | Start of string      | `^Hello` |
+| `$`    | End of string        | `world$` |
+| `[ ]`  | Any one inside       | `[abc]`  |
+| `{n}`  | Exactly n times      | `\d{10}` |
+
+We may use Regex for:
+----------------------------
+Cleaning special characters
+Extracting ID numbers
+Validating phone/email columns
+Parsing logs
+Extracting values from JSON text
+
+-----------------------------------------------------------------
+
+import re
+
+print("\n================= 1. re.match() =================")
+
+re.match() checks ONLY from position 0 (start of string)
+
+text = "Python is powerful"
+match_result = re.match("Python", text)
+print("Match:", match_result)
+print("Group:", match_result.group() if match_result else None)
+
+When pattern is found, Python does NOT return True.
+
+It returns a Match Object.
+Because it stores extra information like:
+Where match started
+Where match ended
+What text matched
+Groups (if any)
+
+The match object is like a container.
+.group() extracts the actual matched text.
+
+--------
+Match object → Box
+.group() → Take content from box
+
+print("\n================= 2. re.search() =================")
+
+#re.search() looks for a pattern anywhere in the string
+#Not only at the beginning
+#It scans the full string from left to right
+
+search_result = re.search("powerful", text)
+print("Search:", search_result.group())
+
+print("\n================= 3. re.fullmatch() =================")
+
+#re.fullmatch() checks if the entire string matches the pattern
+#Not just start
+#Not anywhere
+#The WHOLE string must match exactly
+
+fullmatch_result = re.fullmatch("Python is powerful", text)
+print("Fullmatch:", fullmatch_result)
+
+print("\n================= 4. re.findall() =================")
+
+#re.findall() is used to find ALL occurrences of a pattern in a string
+#It scans the entire string
+#It returns a list of matches
+#If no match → returns empty list []
+
+text2 = "cat bat rat mat"
+findall_result = re.findall("at", text2)
+print("Findall:", findall_result)
+
+print("\n================= 5. re.finditer() =================")
+
+#re.finditer() finds all matches, just like findall()
+#But instead of returning a list
+#It returns an iterator of Match objects
+
+for match in re.finditer("at", text2):
+    print("Match:", match.group(), "Span:", match.span())
+
+#match.span()
+#Returns tuple (start_index, end_index)
+
+print("\n================= 6. re.split() =================")
+
+#re.split() is used to split a string using a pattern
+#It works like str.split()
+#But here we can split using multiple separators
+
+text3 = "apple,banana;orange|grape"
+split_result = re.split("[,;|]", text3)
+print("Split:", split_result)
+
+| Method           | Can use multiple separators? |
+| ---------------- | ---------------------------- |
+| `str.split(",")` | No                           |
+| `re.split("[,;   | ]")`                         |
+
+
+print("\n================= 7. re.sub() =================")
+
+#re.sub() is used to replace text using a pattern
+#It searches for a pattern
+#Replaces it with another value
+#Returns a new modified string
+
+#It does NOT modify original string.
+#It returns a new string.
+
+#re.sub(pattern, replacement, string)
+
+text4 = "I love Java"
+sub_result = re.sub("Java", "Python", text4)
+print("Sub:", sub_result)
+
+#re.sub("a", "X", "banana", count=1)
+#re.sub("a", "X", "banana", count=2) -> till second
+
+print("\n================= 8. re.subn() =================")
+
+#re.subn() is similar to re.sub()
+#It replaces pattern with new value
+#BUT it also tells how many replacements happened
+
+#re.sub() → returns only modified string
+#re.subn() → returns (modified_string, count)
+
+text5 = "dog dog dog"
+subn_result = re.subn("dog", "cat", text5)
+print("Subn:", subn_result)
+
+print("\n================= 9. re.compile() =================")
+
+#The purpose is to prepare (pre-build) the regex pattern once
+#So you can reuse it multiple times efficiently
+
+pattern = re.compile(r"\d+")
+compiled_result = pattern.findall("abc123xyz456")
+print("Compiled Findall:", compiled_result)
+
+Slow
+------
+for line in lines:
+    re.findall(r"\d+", line)
+
+fast
+-------
+pattern = re.compile(r"\d+")
+for line in lines:
+    pattern.findall(line)
+
+print("\n================= 10. re.escape() =================")
+
+#re.escape() is used to escape special regex characters
+#It adds \ (backslash) before special characters
+#So they are treated as normal text, not regex symbols
+
+text6 = "Hello. How are you?"
+escaped_text = re.escape(text6)
+print("Escaped:", escaped_text)
+
+print("\n================= 11. Character Classes =================")
+
+#Match any one character inside the brackets
+#Only one character at a time
+#It works like “OR” between characters
+
+print(re.findall("[aeiou]", "education"))
+print(re.findall("[a-z]+", "Hello WORLD"))  -- e,l,l,o  ello
+print(re.findall("[0-9]", "abc123"))
+
+print("\n================= 12. Quantifiers =================")
+
+#How many times a character or pattern should repeat
+
+| Symbol | Meaning            |
+| ------ | ------------------ |
+| `+`    | One or more times  |I need at least one.
+| `*`    | Zero or more times |Even zero is okay.
+| `?`    | Zero or one time   |Maybe yes, maybe no.
+
+print(re.findall("a+", "caaaandy"))
+print(re.findall("go*", "goooal")) #(pattern, text)
+print(re.findall("ba?", "bat ball"))
+
+result = re.findall("l*", "goooal")
+print(len(result))
+print(result)
+
+| Pattern | Empty Possible?             | Why                |
+| ------- | --------------------------- | ------------------ |
+| `a*`    | Yes                       | zero allowed       |
+| `a?`    | Yes                       | zero allowed       |
+| `a+`    | No                        | needs at least one |
+| `ab*`   | No (unless starts with a) | must start with a  |
+| `.*`    | Yes                       | dot* allows zero   |
+
+One value when (*)
+---------------------
+Pattern appears only once
+And that match consumes the full sequence
+
+Sequence of values when (*)
+-----------------------------
+Pattern appears multiple times OR
+Pattern can match in different positions OR
+Pattern allows zero matches (*)
+
+
+print("\n================= 13. Anchors =================")
+
+#Anchors do NOT match characters.
+#They match positions in a string.
+
+print(re.findall("^Python", "Python is great")) --caret
+print(re.findall("great$", "Python is great"))
+
+| Symbol | Meaning         |
+| ------ | --------------- |
+| `^`    | Start of string |
+| `$`    | End of string   |
+
+| Function         | Returns       | Can Use `.group()`? |
+| ---------------- | ------------- | ------------------- |
+| `re.match()`     | Match object  | Yes               |
+| `re.search()`    | Match object  | Yes               |
+| `re.fullmatch()` | Match object  | Yes               |
+| `re.finditer()`  | Match objects | Yes               |
+| `re.findall()`   | List          | No                |
+| `re.split()`     | List          | No                |
+| `re.sub()`       | String        | No                |
+| `re.subn()`      | Tuple         | No                |
+
+
+print("\n================= 14. Grouping =================")
+
+text7 = "My phone number is 9876543210"
+group_match = re.search(r"(\d{10})", text7)
+print("Captured Group:", group_match.group(1))
+
+#The r means raw string.
+#We use Because in regex we use \ a lot.
+#Raw string tells Python, "Don’t treat backslash as special character."
+#So \d works correctly.
+
+group_match?
+
+It stores a Match objet
+
+Inside that object,
+Entire match
+Captured groups
+Start position
+End position
+
+print("\n================= 15. Named Groups =================")
+
+pattern_named = r"(?P<country>\+91)-(?P<number>\d{10})"
+named_match = re.search(pattern_named, "+91-9876543210")
+print("Named Groups:", named_match.groupdict())
+
+print("\n================= Grouping Example =================")
+
+text = "My phone number is +91-9876543210"
+pattern = r"(\+91)-(\d{10})"
+match = re.search(pattern, text)
+if match:
+    print("Full Match (group 0):", match.group(0))  # Entire match
+    print("Country Code (group 1):", match.group(1))  # First group
+    print("Phone Number (group 2):", match.group(2))  # Second group
+else:
+    print("No match found")
+
+
+print("\n================= 16. Greedy vs Lazy =================")
+
+text8 = "<html><body>Content</body></html>"
+print("Greedy:", re.findall("<.*>", text8))
+print("Lazy:", re.findall("<.*?>", text8))
+
+* is GREEDY by default
+Greedy means:
+Match as MUCH as possible.
+
+*? means:
+Lazy (Non-greedy)
+Match as LITTLE as possible.
+
+| Greedy                 | Lazy                   |
+| ---------------------- | ---------------------- |
+| `*`                    | `*?`                   |
+| Takes maximum possible | Takes minimum possible |
+| Swallows large chunk   | Stops early            |
+
+
+print("\n================= 18. Email Validation =================")
+
+email_pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+emails = ["test@gmail.com", "user@domain.co", "bad-email"]
+
+for email in emails:
+    if re.fullmatch(email_pattern, email):
+        print(email, "=> VALID")
+    else:
+        print(email, "=> INVALID")
+
+| Concept          | Meaning                  |
+| ---------------- | ------------------------ |
+| `^`              | Start anchor             |
+| `$`              | End anchor               |
+| `[]`             | Character class          |
+| `\w`             | Letter/digit/underscore  |
+| `\.`             | Literal dot              |
+| `+`              | One or more              |
+| `re.fullmatch()` | Entire string must match |
+
+
+print("\n================= 19. Phone Number Validation =================")
+
+phone_pattern = r"^[6-9]\d{9}$"
+phones = ["9876543210", "1234567890"]
+
+for phone in phones:
+    print(phone, "=>", bool(re.fullmatch(phone_pattern, phone)))
+
+print("\n================= 20. Password Validation =================")
+
+password_pattern = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
+passwords = ["Test@123", "weakpass", "Strong@9"]
+
+for password in passwords:
+    print(password, "=>", bool(re.fullmatch(password_pattern, password)))
+
+(?=something) -> If this condition is true, continue matching.
+
+?= → positive lookahead
+.* → any characters (0 or more)
+[A-Z] → at least one uppercase letter
+
+\d → digit (0–9)
+.* → anything before digit
+
+. → any character
+{8,} → minimum 8 characters
+
+| Symbol        | Meaning                  |
+| ------------- | ------------------------ |
+| `^`           | Start of string          |
+| `$`           | End of string            |
+| `(?= )`       | Positive lookahead       |
+| `.*`          | Any characters           |
+| `[A-Z]`       | Uppercase letter         |
+| `\d`          | Digit                    |
+| `{8,}`        | Minimum 8 characters     |
+| `fullmatch()` | Entire string must match |
+
+
+print("\n================= 21. re.VERBOSE =================")
+
+verbose_pattern = re.compile(r"""
+    ^                   # start
+    (?=.*[A-Z])         # uppercase
+    (?=.*\d)            # digit
+    (?=.*[@$!%*?&])     # special char
+    .{8,}               # length
+    $                   # end
+""", re.X)
+
+print(bool(verbose_pattern.fullmatch("Test@123")))
+
+re.X means Verbose Mode.
+------
+This allows:
+Writing regex in multiple lines
+Adding spaces
+Adding comments using #
+Without re.X, spaces and comments would break pattern.
+
+This checks:
+
+At least one uppercase letter
+At least one digit
+At least one special character
+Minimum 8 characters
+Full string match
+
+print("\n================= 22. Practical Data Extraction =================")
+
+log = "IP: 192.168.1.1 DATE: 2025-01-01"
+ip = re.search(r"\d+\.\d+\.\d+\.\d+", log).group()
+date = re.search(r"\d{4}-\d{2}-\d{2}", log).group()
+print("IP:", ip)
+print("Date:", date)
+
+| Symbol     | Meaning              |
+| ---------- | -------------------- |
+| `\d`       | Digit                |
+| `+`        | One or more          |
+| `{n}`      | Exactly n times      |
+| `\.`       | Literal dot          |
+| `-`        | Literal dash         |
+| `search()` | Find first match     |
+| `group()`  | Extract matched text |
+
+
+print("\n================= END OF COMPLETE re MODULE =================")
