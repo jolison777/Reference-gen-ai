@@ -1,0 +1,165 @@
+ML:
+machine learning:
+
+ML Ai branch
+learn patterns from the data..
+it will do the predictions or decisions..
+
+Learn patterns from the data..
+
+pre-defined exceitions:
+bank loan:
+10K loan applications:  
+
+ML will help:
+
+
+
+A  80K   780  No  Good
+b  25k   520  Yes  poor
+C  1L    810  No   Good
+
+Previous loan, slary > 50K .. yes..
+
+
+Low risk..
+high risk.. cancel
+medium risk.. optional/manual review / loan amt reduce, cancel..
+
+
+supervised learning:
+
+learns from input /sample data ..
+
+un supervised learning:
+---------------------------------
+
+machiie it will try to isentify the patterns, similarities..
+
+clustering:
+eligible
+A  80K   780  No  Good
+C  1L    810  No   Good
+D
+
+nor eligible:
+b  25k   520  Yes  poor
+E
+
+
+total income  spend
+
+
+Reinforcement learning:
+--------------------------------
+
+trail and error method
+
+take actions,  reward: +5, -2
+imoprove its decisions
+
+
+loan system:
+sms emaindee ..
+email remainder ...
+call remainder ..
+ 
+3 life..
+
+video game:
+
+Ai player
+
+left, right,jump,shoot
+
+reward: points,winning gold coins
+penalty: life..
+
+
+Regression:
+-------------
+
+new house:
+
+area in sq.ft   selling price...
+
+historical data ,
+
+
+
+types:
+simple linear
+multiple linear
+polynomial regression:
+
+
+
+new house:
+
+
+area 1500   --   10
+BHK  --- 8
+location    -- 8
+near by facilities - schools--5
+age of building n-- 5 yrs -- 9
+
+door color  ..  0.9
+wall paint color  .. 1.2    
+
+Lasso:  0
+Ridge:  
+L1 and L2
+
+
+
+un supervised learning:
+
+anomaly detection: fraud
+unusual patterns:
+
+cust A:
+1000 -3000 products:
+2-3 purchase
+Chennai
+
+unusual pattern:
+
+1.5L purchase made
+multipoe purchase
+diff loactions:
+
+
+assoiciate rule learning:
+
+mobile phone:
+
+1000, 10K
+
+frequently bought togther
+case, charger, screen protector.
+
+
+
+
+
+
+
+
+
+
+
+
+polynomial regression:
+yrs      sal  
+0-1       25K
+3         45k
+10        1L
+15        1.5L
+18        2L
+35        20K
+40         15K
+
+noise:
+overfitting:
+
+trainging data too closely inlcusing noise.. unnexeccsary info ..

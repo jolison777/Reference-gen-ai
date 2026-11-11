@@ -1,0 +1,141 @@
+
+AI:
+
+
+automate
+
+day to day activities; manual;
+
+bank loan:
+
+credit score -- 300 to 700
+salried person
+repayment capacity
+KYC  
+previous loan ..
+property /asset ..
+
+bank manager:
+
+
+AI automate:
+
+sample data :
+1M cutomer data feed..
+
+
+pre-train:
+
+data:
+
+6-8 month
+
+
+
+restaurant:
+
+3 times
+
+table : 3 rec:
+
+today sold items:
+
+
+starting date:
+
+10 yrs...
+
+billion..
+
+
+current data .. 1 year ..
+database:
+OLTP:
+------------
+oline transaction processing..
+oracle, sqlserver..
+
+
+
+history data .. > 1 year
+
+OLAP:
+OLINE ANALYTICAL PROCESSING
+histry data:
+snowflake,redshift , databricks..
+data warehouse..
+godown of data ..
+
+
+ETL process:
+-------
+extract  -- pulling the data
+transform -- duplicate , null values handle dta cleanisng..
+load --loading to data
+
+
+oracle:
+emp: first_name  last_name
+
+
+transformation:
+first_name || last_name as full_name
+
+business rules:
+-----------------------
+
+students:
+
+2 school:
+
+academic :
+
+maths , science >
+
+sports :
+running race, high jump
+
+
+
+ELT:
+
+-----------------------
+extract
+load
+transform
+
+
+etl -- transformation happens before moving to target
+
+elt -- we will do transformation , n the target ..
+
+
+
+
+data engineering :
+
+
+2023 jan -- AI ..
+
+3.5 -4 yrs...
+
+
+2023 before:
+data engineering:
+testing..
+
+1 proj
+
+
+2-3 proj..
+
+banking, health care, insurance...
+
+BOA, WELLS FARGO, JP,MS,CITI,
+
+top 200 investment banking
+
+150 ..
+
+
+Poland .. 
