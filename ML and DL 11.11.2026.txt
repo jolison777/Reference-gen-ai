@@ -1,0 +1,224 @@
+ML:
+
+train:
+
+supervised learning  --
+sample data .. regression:
+siple linear  --
+multipe linear --
+polynomial   -- curve. noise/overfitting..
+descision tree
+random forest
+xg boost ..
+
+ridge/ lasso ..
+0
+
+house, wall paint, door paint...
+
+ram, battery, storage..
+
+color: blue ..
+
+unsupervised learning:
+
+grouping, it learns form the data
+
+reinforcement learning:
+trial and error
+reward: +4 , -2...
+
+
+
+
+descision tree:
+
+simple rule based decision:
+
+
+credit scroe: >=700
+yes     no high risk
+income >=50000
+yes     no  hogh risk
+low risk eligible..
+
+
+
+
+random forest :
+
+tree: multipe tree voting:
+
+
+credit score  
+, salary,    
+esiing emi
+, laon history,
+ income stablility,
+
+
+100 tree are trained..
+
+80 tree .. low risk
+
+20 predict .. high risk ..
+
+voting:
+
+
+
+xg boost:
+
+extreme graident boositng:
+
+tres sequential.
+1 tree .. next tree will learn..
+
+
+intial tree 1:
+
+low risk ..
+learning it will adjust ..
+
+tree2:
+high risk..
+further improvement
+
+tree 3:
+
+tree 100:
+
+
+Deep learning:
+
+ML is a subset of AI
+
+dl is a subset of ML..
+
+it will rcognise, images, audio , video , pdf, text files..
+
+more advance way of learing from data..
+
+human brain..
+
+neural network ..
+
+
+input
+hidden layer
+output
+
+
+
+28*28 == 784 pixels..
+
+flatten
+
+one row ..
+
+
+1 2 3 4 5  6
+
+0 - black
+255 -white ..
+
+/255
+
+0 and 1
+activation .. ReLu..
+input layer   hiddel layer 1 hl2 output
+1 1 1 0
+2 2 2 1
+3 3 3 2
+4 4 4               7   98%
+5 5 5 8
+128 64 9
+
+
+784 neurons  128 neorons 64 neurons
+
+128 connections
+
+784 * 128 -- learing weight
+
+784 -- 256 -- 128 -- 64 -- output
+
+
+fuy connected neural network
+
+
+CNN --
+
+convolutional neural network..
+
+it detects, edges, curves..
+
+
+medical report :
+mri scan ..
+
+RNN: recurrent neural network:
+
+it ill remember things..
+
+250, 100, , ,  , 75000
+
+3000..
+sequence
+
+75000.. diff location ...
+
+abnormal ..
+
+LSTM:
+
+long short term memoery :
+
+longer time it can remember...
+
+
+transformer .. architecture ..
+
+
+
+
+
+784 -- 64 --output..
+
+Chennai new:
+koyambedu to Guindy ..
+maps:
+
+100 maps .. hidden layer 1
+
+
+
+koyambedu to tambaram:
+
+Guindy ..
+
+Guindy to tmbram:
+80 maps..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+760, 1L..
+
+75K
+
+25K ..
+
+low risk..
