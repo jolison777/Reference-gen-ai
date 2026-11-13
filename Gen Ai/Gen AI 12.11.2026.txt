@@ -1,0 +1,197 @@
+Gen AI:
+------------------------
+
+it is a type of AI.
+create a new content  such as text, image,videos,etc..
+
+books, articles, refrence src ..
+
+
+what is banking?
+---------------------
+
+chatbot.
+
+
+
+
+gen AI architecture:
+4 layers:
+1. data layer
+AI , 1st layer
+collecting, storing,cleaning,preapeing the data ai ans based ont he question..
+
+sturted(rdbms, files), un - struc (images)
+csv files, json, paruet
+
+data storage:
+db  oltp,-- transaction data
+olap -- analytical -- curr + history .. data warehouse ..
+ central loaction ..
+
+aws -- s3 .. simple storage service .. bucket (container)--
+azure --blob
+gcp --bucket
+
+data extraction:
+pyhton libraries..
+pandas ..
+ y dat alayer?
+
+
+
+policy document ..
+convert text..  into numeriacal repres , vectors
+
+
+apple = [0.10,0.35,0.58]
+pineapple = [0.13,0.38,0.60]
+
+BANK..
+i have a account in hdfc..
+
+card, debit,credit,txns
+
+tajmahal is located on the banks of river ganga
+
+
+bank = [0.20,0.45,0.68]  -- credit,debit
+bank = [0.08,-0.34,0.99] -- 2nd scenario
+
+
+
+encoding:
+
+converting text into format
+
+token ID:
+
+employee leave
+
+employee -- 105
+leave -- 210
+
+
+numerical id:
+1 token is not equal to 1 word
+I have - 1
+
+eating .. eat + ing
+
+i  - 1
+have --2
+a  --3
+account --4
+in  --5
+hdfc--6
+.. --7
+
+
+
+
+2. embedding layer
+----------------------
+2nd layer..
+
+
+
+
+
+
+3.retrieval layer
+-------------------------
+
+finding the most relevant information from the vector DB..
+
+vector DB: -- vector , faiss, pinecone...
+
+top-matching ..
+
+
+
+
+
+
+
+4. llm -- large lang model
+
+final answer ..
+understanding the user question and it will generate ans in
+human readbale format ..
+
+explames:
+claude(anthropic)
+gpt(openAI)
+gemini (google )
+
+
+nlp:
+
+natural language proessing:
+---------------------
+
+
+English, tamil ,
+numerical repress
+
+it acts as a bridge between humal lang and computers..
+
+
+pip install pypdf2
+
+natural language tool kit:
+
+
+I know cricket. it is an outdoor game.
+I use to play daily.
+
+
+
+'what', 'is' the leave policy   ?
+
+
+
+NLP:program:
+import PyPDF2
+import nltk
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+from nltk.tokenize import word_tokenize
+
+files=[
+    r"D:\GENAI\HR_Policy_Document.pdf",
+    r"D:\GENAI\Employee_Conduct_Policy.pdf",
+    r"D:\GENAI\Workplace_Safety_Policy.pdf",
+    r"D:\GENAI\IT_Security_Policy.pdf"
+   
+]
+
+documents=[]
+
+for file in files:
+    reader=PyPDF2.PdfReader(file)
+    text=""
+    for page in reader.pages:
+        text+=page.extract_text()
+    documents.append(text)
+
+print("Documents Loaded:",len(documents))
+
+query=input("Ask Question: ")
+
+query_tokens=word_tokenize(query)
+
+print("Query Tokens:",query_tokens)
+
+for doc in documents:
+
+    tokens=word_tokenize(doc)
+
+    common=set(tokens).intersection(set(query_tokens))
+
+    print("Common Tokens:",common)
+
+    if len(common)>0:
+        print("\nRelevant Section:\n")
+        print(doc[:500])
