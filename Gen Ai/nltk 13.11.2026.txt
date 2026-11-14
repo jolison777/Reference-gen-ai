@@ -1,0 +1,406 @@
+nltk
+
+- This stands for Natural Language Toolkit.
+- It is used for text processing tasks like
+- splitting sentences
+- splitting words
+- removing stop words
+- stemming
+'''
+import PyPDF2
+import nltk
+import numpy as np
+
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+
+files=[
+    r"D:\GENAI\HR_Policy_Document.pdf",
+    r"D:\GENAI\Employee_Conduct_Policy.pdf",
+    r"D:\GENAI\Workplace_Safety_Policy.pdf",
+    r"D:\GENAI\IT_Security_Policy.pdf"
+]
+
+documents=[]
+
+for file in files:
+    reader=PyPDF2.PdfReader(file)
+    text=""
+    for page in reader.pages:
+        page_text = page.extract_text()
+        if page_text:
+            text += page_text
+    documents.append(text)
+print("Documents Loaded:",len(documents))
+'''
+sent_tokenize
+Breaks text into sentences.
+Example
+Text:
+Employees must follow rules. Security training is mandatory.
+
+Output
+Sentence 1 → Employees must follow rules
+Sentence 2 → Security training is mandatory
+'''
+sentences = []
+
+for doc in documents:
+    sents = sent_tokenize(doc)
+    for s in sents:
+        sentences.append(s)
+
+print("Total Sentences:",len(sentences))
+
+'''
+Stopwords are common words that do not add meaning.
+Examples:
+the
+is
+am
+are
+in
+on
+a
+an
+
+Example sentence
+Employee must follow the security policy.
+After removing stopwords
+Employee follow security policy
+This helps improve search accuracy.
+'''
+
+stop_words = set(stopwords.words("english"))
+
+'''
+Stemming means reducing words to root form.
+
+Examples
+Running → run
+Working → work
+Employees → employe
+
+This helps match similar words.
+
+Example
+Query: "working hours"
+
+Document contains: "work hours"
+Stemming makes them match.
+'''
+
+stemmer = PorterStemmer()
+
+def preprocess(text):
+
+    if not text:
+        return ""
+
+    tokens = word_tokenize(text.lower())
+
+    clean_tokens=[]
+
+    for word in tokens:
+
+        if word.isalpha() and word not in stop_words:
+
+            stem=stemmer.stem(word)
+
+            clean_tokens.append(stem)
+
+    return " ".join(clean_tokens)
+
+processed_sentences=[]
+
+for s in sentences:
+    processed_sentences.append(preprocess(s))
+
+'''
+TfidfVectorizer converts text into numbers.
+Machines cannot understand text directly.
+So we convert sentences into numeric vectors.
+TF-IDF means:
+
+TF → Term Frequency
+How many times a word appears in sentence.
+
+IDF → Inverse Document Frequency
+How important the word is across all sentences.
+
+Example
+Sentence: Employees must follow security rules
+
+Important words:
+employees
+security
+rules
+
+TF-IDF assigns higher weight to important words.
+'''
+
+vectorizer=TfidfVectorizer()
+
+tfidf_matrix=vectorizer.fit_transform(processed_sentences)
+
+query=input("Ask Question: ")
+
+processed_query=preprocess(query)
+
+query_vector=vectorizer.transform([processed_query])
+
+
+'''
+This is used to compare similarity between two vectors.
+
+Example
+
+Sentence 1: Employees must wear ID card
+
+Sentence 2: Employees should carry ID card
+
+These sentences are very similar.
+
+Cosine similarity might return 0.92
+
+Value ranges between
+0 → not similar
+1 → exactly same
+'''
+
+similarities=cosine_similarity(query_vector,tfidf_matrix)
+
+best_match_index=np.argmax(similarities)
+
+best_score=similarities[0][best_match_index]
+
+
+print("\nBest Matching Sentence:\n")
+
+print(sentences[best_match_index])
+
+print("\nSimilarity Score:",best_score)
+
+gen ai intro
+
+architeucre:
+data layer: 
+
+python : boto3. aws.. etl tools also .iics,talend 
+
+store, aws s3 -- bucket; folder;places;csv,json,parquet.. 
+azure -- blob
+gcp --bucket 
+
+
+embeeding  -- 
+
+vector: text into numbers: 
+apple= [0.25,0.38.0.78] ..
+pineapple = [0.28,0.40,0.87]
+
+bank = [0.45]
+
+bank = [-0.12]
+
+
+
+
+retierval -- vector db .. 
+llm  -- large lang model ..
+
+generate a new content ..
+
+
+
+nltk ... 
+
+
+sentence splitting ..
+
+breaking a para into individual sentence.
+
+I know python. python iseasy. I am learning AI.
+
+I know python
+python iseasy
+I am learning AI.
+
+
+
+word splitting (tokenization)
+
+
+
+breaking a sentence into indicual words
+
+
+
+I know pyhton.
+
+
+I 
+know
+python 
+.
+
+stop words:
+
+words that don't carry much important meaning ...
+
+
+The
+is
+are
+of 
+in
+
+what is the  leave policy ?
+
+
+is 
+the 
+
+
+leave 
+policy ..
+
+
+I am learning python in the classroom
+
+
+learning
+python
+classroom 
+
+
+stemming: better
+
+reducing a word to its basic root 
+
+
+playing, played, plays
+
+
+original word   stemming word
+playing         play
+connected       connect 
+studies          study 
+
+lemmatization: best 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+text= 
+ I 
+know python. python iseasy. I am learning AI.
+alnum()
+
+
+words into numbers
+
+tf-idf:
+
+tf -- term frequency
+how many times a word appears in a document 
+
+
+
+idf -- inverse term frequency 
+how rare / common a word across all document ..
+
+security is important. security protects employees .
+
+security -  2 times
+important -  1 time 
+
+
+
+
+
+docu1: employees must follow strict rules
+document 2: security traing is mandatory 
+soc3: employees must atend meeting ..
+
+
+employees: 2 docum
+
+security : 1 doct: 
+
+
+it appears in fewer documents has higher idf value .. 
+
+
+cosine similarity :
+
+to find how similar two sentences /document saer 
+
+should I bring id card?
+
+employees must wear Id card
+employees should carry id card..
+
+words are different ..
+but they communicat esame idea..
+
+0 (low)to 1(high ): 
+
+high marks: 
+0.9(high)
+0.7
+0.5
+0.1 (low )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
