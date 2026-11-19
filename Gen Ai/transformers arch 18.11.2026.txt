@@ -1,0 +1,244 @@
+from transformers import pipeline
+
+# load open source model
+generator = pipeline("text-generation", model="gpt2")
+
+# generate text
+result = generator("Artificial Intelligence is", max_length=50)
+
+print(result[0]['generated_text'])
+
+https://huggingface.co/models
+
+https://poloclub.github.io/transformer-explainer/
+
+tranfomer architecture :
+
+encoding:
+vector [0.33,0.44,0.11]
+attention : 
+
+
+
+
+transformer architecture:
+it is a deep learing architecture.
+
+
+neural network, 
+RNN, lstm -- 
+long short term memory: 
+
+
+
+4 -6 documents:
+
+1 document: -3 - 4 pages
+
+500 documents :
+1 document: 400 pages > that ..
+
+page 1 ..
+
+page 100 ..
+
+transformer ar hcitecure :
+
+
+encoding
+reads the input sentence and understand the meaning and relationship between wrds.
+
+i am going to bank:
+
+convert words into numberical embedding :
+adds positional ingormation to understand word order
+
+positional encoding 
+dog  --1
+bites  --2
+man-- 3
+
+self-attention mechanism:
+
+kumar is dancer from Chennai:
+
+dancer
+Chennai: 
+
+
+the animal didn cross the road bcoz it was tired.
+
+IT --animal .. 
+
+3 vectors:
+query: what info am i looking for?
+key: what info does each word offer?
+value:  what info i should collect ;
+
+
+SoftMax(query, key, value):
+
+attention score, probabilities
+itwieght 0 and 1, 
+
+
+100%
+
+
+75%
+13%
+
+
+multi head attention;
+-------
+
+
+loks at the same sentec from diff prespective:
+
+
+the boy is playing cricket in the park.
+
+
+head1: boy
+head2: what is the activity? playing , cricket
+head3: where ? park 
+
+combine all info 
+
+
+feed forward network:
+
+
+is a small neural network ..
+it process the information leanred form attention mechanism ..
+
+1. identife the relationship
+2. ouput , this ffn ill take it as input ..
+3. passes thru the activaltion layers, relu /gelu ..
+4. generate text : 
+
+
+the customer deposited money in the bank 
+
+hdfc bank -- depost, money ..
+
+
+LLM:
+---------------
+
+large lang model
+
+gpt, claude, gemini, gork, mistral etc:...
+
+
+openAI: 
+paid llm as well:
+
+anthropic;
+
+gpt-2 ; old model :
+free 
+
+
+generator = pipeline("text-generation", model="gpt2")
+
+
+
+text-gen; tell the pipeline that i wan tto generate text :
+
+
+result = generator("Artificial Intelligence is", max_length=50)
+
+
+ai is -- input prompt:
+max length is 50 tokens: including input tokens?
+
+
+
+RAG:
+
+retrieval -- search documents or knowledge base 
+augmented  -- adds the retierved information to the user question 
+generation -- llm reads the question and retrieved info 
+genrte a answer based on context provided..
+
+
+llm 1st searches for relvant info from external doxument and used that information to generate an answer...
+
+
+pdf , csv, json,  
+
+hr policy document:
+
+800 pages:
+tokens: 
+
+
+800-1000 tokens:
+
+
+overlap : 50-100 tokens 
+
+
+top - 3
+:
+threshold: 0.5
+bank..  deposit/money ..
+[0.34,0.29,0.22,... ..., ... ]
+
+
+faiss, pinecone :
+
+
+
+
+
+0.9333333333333333333
+0.9333333333333322222
+0.89
+0.81
+0.75
+0.66
+0.51
+0.44
+
+
+
+
+65% -- 
+35% -- deviation:
+
+
+
+pypdf2, pymupdf..
+
+
+
+
+
+
+
+hugging face; open src brand to access the llm:
+
+free llm:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+man bites dog  -- 
+
+ 
+decoding
