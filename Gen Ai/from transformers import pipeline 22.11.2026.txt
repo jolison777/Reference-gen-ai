@@ -1,0 +1,678 @@
+from transformers import pipeline
+
+# load open source model
+generator = pipeline("text-generation", model="gpt2")
+
+# generate text
+result = generator("Artificial Intelligence is", max_length=50)
+
+print(result[0]['generated_text'])
+
+https://huggingface.co/models
+
+https://poloclub.github.io/transformer-explainer/
+
+tranfomer architecture :
+
+encoding:
+vector [0.33,0.44,0.11]
+attention : 
+
+
+
+
+transformer architecture:
+it is a deep learing architecture.
+
+
+neural network, 
+RNN, lstm -- 
+long short term memory: 
+
+
+
+4 -6 documents:
+
+1 document: -3 - 4 pages
+
+500 documents :
+1 document: 400 pages > that ..
+
+page 1 ..
+
+page 100 ..
+
+transformer ar hcitecure :
+
+
+encoding
+reads the input sentence and understand the meaning and relationship between wrds.
+
+i am going to bank:
+
+convert words into numberical embedding :
+adds positional ingormation to understand word order
+
+positional encoding 
+dog  --1
+bites  --2
+man-- 3
+
+self-attention mechanism:
+
+kumar is dancer from Chennai:
+
+dancer
+Chennai: 
+
+
+the animal didn cross the road bcoz it was tired.
+
+IT --animal .. 
+
+3 vectors:
+query: what info am i looking for?
+key: what info does each word offer?
+value:  what info i should collect ;
+
+
+SoftMax(query, key, value):
+
+attention score, probabilities
+itwieght 0 and 1, 
+
+
+100%
+
+
+75%
+13%
+
+
+multi head attention;
+-------
+
+
+loks at the same sentec from diff prespective:
+
+
+the boy is playing cricket in the park.
+
+
+head1: boy
+head2: what is the activity? playing , cricket
+head3: where ? park 
+
+combine all info 
+
+
+feed forward network:
+
+
+is a small neural network ..
+it process the information leanred form attention mechanism ..
+
+1. identife the relationship
+2. ouput , this ffn ill take it as input ..
+3. passes thru the activaltion layers, relu /gelu ..
+4. generate text : 
+
+
+the customer deposited money in the bank 
+
+hdfc bank -- depost, money ..
+
+
+LLM:
+---------------
+
+large lang model
+
+gpt, claude, gemini, gork, mistral etc:...
+
+
+openAI: 
+paid llm as well:
+
+anthropic;
+
+gpt-2 ; old model :
+free 
+
+
+generator = pipeline("text-generation", model="gpt2")
+
+
+
+text-gen; tell the pipeline that i wan tto generate text :
+
+
+result = generator("Artificial Intelligence is", max_length=50)
+
+
+ai is -- input prompt:
+max length is 50 tokens: including input tokens?
+
+
+
+RAG:
+
+retrieval -- search documents or knowledge base 
+augmented  -- adds the retierved information to the user question 
+generation -- llm reads the question and retrieved info 
+genrte a answer based on context provided..
+
+
+llm 1st searches for relvant info from external doxument and used that information to generate an answer...
+
+
+pdf , csv, json,  
+
+hr policy document:
+
+800 pages:
+tokens: 
+
+
+800-1000 tokens:
+
+
+overlap : 50-100 tokens 
+
+
+top - 3
+:
+threshold: 0.5
+bank..  deposit/money ..
+[0.34,0.29,0.22,... ..., ... ]
+
+
+faiss, pinecone :
+
+
+
+
+
+0.9333333333333333333
+0.9333333333333322222
+0.89
+0.81
+0.75
+0.66
+0.51
+0.44
+
+
+
+
+65% -- 
+35% -- deviation:
+
+
+
+pypdf2, pymupdf..
+
+
+
+
+
+
+
+hugging face; open src brand to access the llm:
+
+free llm:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+man bites dog  -- 
+
+ 
+decoding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+On Tue, Nov 17, 2026 at 8:49 PM Gowtham Sitharth <gowthamsitharth25@gmail.com> wrote:
+
+
+On Fri, Nov 13, 2026 at 9:08 PM Gowtham Sitharth <gowthamsitharth25@gmail.com> wrote:
+'''
+nltk
+
+- This stands for Natural Language Toolkit.
+- It is used for text processing tasks like
+- splitting sentences
+- splitting words
+- removing stop words
+- stemming
+'''
+import PyPDF2
+import nltk
+import numpy as np
+
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+
+files=[
+    r"D:\GENAI\HR_Policy_Document.pdf",
+    r"D:\GENAI\Employee_Conduct_Policy.pdf",
+    r"D:\GENAI\Workplace_Safety_Policy.pdf",
+    r"D:\GENAI\IT_Security_Policy.pdf"
+]
+
+documents=[]
+
+for file in files:
+    reader=PyPDF2.PdfReader(file)
+    text=""
+    for page in reader.pages:
+        page_text = page.extract_text()
+        if page_text:
+            text += page_text
+    documents.append(text)
+print("Documents Loaded:",len(documents))
+'''
+sent_tokenize
+Breaks text into sentences.
+Example
+Text:
+Employees must follow rules. Security training is mandatory.
+
+Output
+Sentence 1 → Employees must follow rules
+Sentence 2 → Security training is mandatory
+'''
+sentences = []
+
+for doc in documents:
+    sents = sent_tokenize(doc)
+    for s in sents:
+        sentences.append(s)
+
+print("Total Sentences:",len(sentences))
+
+'''
+Stopwords are common words that do not add meaning.
+Examples:
+the
+is
+am
+are
+in
+on
+a
+an
+
+Example sentence
+Employee must follow the security policy.
+After removing stopwords
+Employee follow security policy
+This helps improve search accuracy.
+'''
+
+stop_words = set(stopwords.words("english"))
+
+'''
+Stemming means reducing words to root form.
+
+Examples
+Running → run
+Working → work
+Employees → employe
+
+This helps match similar words.
+
+Example
+Query: "working hours"
+
+Document contains: "work hours"
+Stemming makes them match.
+'''
+
+stemmer = PorterStemmer()
+
+def preprocess(text):
+
+    if not text:
+        return ""
+
+    tokens = word_tokenize(text.lower())
+
+    clean_tokens=[]
+
+    for word in tokens:
+
+        if word.isalpha() and word not in stop_words:
+
+            stem=stemmer.stem(word)
+
+            clean_tokens.append(stem)
+
+    return " ".join(clean_tokens)
+
+processed_sentences=[]
+
+for s in sentences:
+    processed_sentences.append(preprocess(s))
+
+'''
+TfidfVectorizer converts text into numbers.
+Machines cannot understand text directly.
+So we convert sentences into numeric vectors.
+TF-IDF means:
+
+TF → Term Frequency
+How many times a word appears in sentence.
+
+IDF → Inverse Document Frequency
+How important the word is across all sentences.
+
+Example
+Sentence: Employees must follow security rules
+
+Important words:
+employees
+security
+rules
+
+TF-IDF assigns higher weight to important words.
+'''
+
+vectorizer=TfidfVectorizer()
+
+tfidf_matrix=vectorizer.fit_transform(processed_sentences)
+
+query=input("Ask Question: ")
+
+processed_query=preprocess(query)
+
+query_vector=vectorizer.transform([processed_query])
+
+
+'''
+This is used to compare similarity between two vectors.
+
+Example
+
+Sentence 1: Employees must wear ID card
+
+Sentence 2: Employees should carry ID card
+
+These sentences are very similar.
+
+Cosine similarity might return 0.92
+
+Value ranges between
+0 → not similar
+1 → exactly same
+'''
+
+similarities=cosine_similarity(query_vector,tfidf_matrix)
+
+best_match_index=np.argmax(similarities)
+
+best_score=similarities[0][best_match_index]
+
+
+print("\nBest Matching Sentence:\n")
+
+print(sentences[best_match_index])
+
+print("\nSimilarity Score:",best_score)
+
+gen ai intro
+
+architeucre:
+data layer: 
+
+python : boto3. aws.. etl tools also .iics,talend 
+
+store, aws s3 -- bucket; folder;places;csv,json,parquet.. 
+azure -- blob
+gcp --bucket 
+
+
+embeeding  -- 
+
+vector: text into numbers: 
+apple= [0.25,0.38.0.78] ..
+pineapple = [0.28,0.40,0.87]
+
+bank = [0.45]
+
+bank = [-0.12]
+
+
+
+
+retierval -- vector db .. 
+llm  -- large lang model ..
+
+generate a new content ..
+
+
+
+nltk ... 
+
+
+sentence splitting ..
+
+breaking a para into individual sentence.
+
+I know python. python iseasy. I am learning AI.
+
+I know python
+python iseasy
+I am learning AI.
+
+
+
+word splitting (tokenization)
+
+
+
+breaking a sentence into indicual words
+
+
+
+I know pyhton.
+
+
+I 
+know
+python 
+.
+
+stop words:
+
+words that don't carry much important meaning ...
+
+
+The
+is
+are
+of 
+in
+
+what is the  leave policy ?
+
+
+is 
+the 
+
+
+leave 
+policy ..
+
+
+I am learning python in the classroom
+
+
+learning
+python
+classroom 
+
+
+stemming: better
+
+reducing a word to its basic root 
+
+
+playing, played, plays
+
+
+original word   stemming word
+playing         play
+connected       connect 
+studies          study 
+
+lemmatization: best 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+text= 
+ I 
+know python. python iseasy. I am learning AI.
+alnum()
+
+
+words into numbers
+
+tf-idf:
+
+tf -- term frequency
+how many times a word appears in a document 
+
+
+
+idf -- inverse term frequency 
+how rare / common a word across all document ..
+
+security is important. security protects employees .
+
+security -  2 times
+important -  1 time 
+
+
+
+
+
+docu1: employees must follow strict rules
+document 2: security traing is mandatory 
+soc3: employees must atend meeting ..
+
+
+employees: 2 docum
+
+security : 1 doct: 
+
+
+it appears in fewer documents has higher idf value .. 
+
+
+cosine similarity :
+
+to find how similar two sentences /document saer 
+
+should I bring id card?
+
+employees must wear Id card
+employees should carry id card..
+
+words are different ..
+but they communicat esame idea..
+
+0 (low)to 1(high ): 
+
+high marks: 
+0.9(high)
+0.7
+0.5
+0.1 (low )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
